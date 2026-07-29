@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: true
+  workerd: true
+
+overrides:
+  '@bruits/satteri-wasm32-wasi>@napi-rs/wasm-runtime': 1.1.6
+  '@rolldown/binding-wasm32-wasi>@napi-rs/wasm-runtime': 1.1.6

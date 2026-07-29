@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="找不到頁面｜石門大草坪" description="找不到你要瀏覽的頁面。" noindex={true}>
+  <Header />
+  <main id="main-content" class="grid min-h-[80vh] place-items-center px-5 pt-24 text-center">
+    <div>
+      <p class="font-mono text-sm font-bold tracking-[.18em] text-[#a45f47]">404</p>
+      <h1 class="mt-6 text-5xl font-extrabold tracking-[-.055em] sm:text-7xl">這條路沒有通往草坪</h1>
+      <p class="mx-auto mt-6 max-w-xl leading-8 text-[#687267]">頁面可能已經移動，或網址輸入有誤。回到首頁，重新查看石門大草坪的行前資訊。</p>
+      <a class="btn-primary mt-9" href="/">回到首頁</a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

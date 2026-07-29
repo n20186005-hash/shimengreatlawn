@@ -1,0 +1,51 @@
+---
+import Icon from './Icon.astro';
+---
+
+<div class="relative overflow-hidden rounded-[2rem] border border-black/8 bg-[#dfe7d8] p-5 shadow-[0_20px_60px_rgba(46,61,42,.14)] sm:p-8" aria-label="石門大草坪位置示意圖">
+  <div class="absolute -right-10 -top-12 size-48 rounded-full bg-[#bcd4dd]/60 blur-2xl"></div>
+  <div class="absolute -bottom-12 -left-8 size-48 rounded-full bg-[#879b68]/35 blur-3xl"></div>
+
+  <div class="relative min-h-[25rem] overflow-hidden rounded-[1.35rem] bg-[#f4f0e5] p-5 sm:min-h-[30rem] sm:p-8">
+    <svg class="absolute inset-0 h-full w-full" viewBox="0 0 800 560" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-30 430C120 390 230 410 340 340s240-65 510-150" fill="none" stroke="#d1c9b9" stroke-width="30" stroke-linecap="round"/>
+      <path d="M-30 430C120 390 230 410 340 340s240-65 510-150" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+      <path d="M490 -20c-30 120-55 210-40 330s-10 190-60 280" fill="none" stroke="#d1c9b9" stroke-width="24" stroke-linecap="round"/>
+      <path d="M490 -20c-30 120-55 210-40 330s-10 190-60 280" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+      <path d="M160 40c90 55 130 125 165 210" fill="none" stroke="#adc9d4" stroke-width="12" stroke-linecap="round" opacity=".65"/>
+      <path d="M95 510c110-70 210-90 300-75" fill="none" stroke="#adc9d4" stroke-width="8" stroke-linecap="round" opacity=".5"/>
+      <ellipse cx="515" cy="250" rx="170" ry="105" fill="#8fa775" opacity=".9"/>
+      <ellipse cx="515" cy="250" rx="135" ry="76" fill="#a9bd91" opacity=".75"/>
+      <circle cx="515" cy="250" r="21" fill="#a45f47"/>
+      <circle cx="515" cy="250" r="9" fill="#fff"/>
+      <path d="M515 272c-18 0-42 6-42 12 0 8 27 14 42 14s42-6 42-14c0-6-24-12-42-12Z" fill="#35442f" opacity=".12"/>
+    </svg>
+
+    <div class="relative z-10 flex items-start justify-between gap-4">
+      <div>
+        <p class="text-xs font-extrabold tracking-[.15em] text-[#66765a]">簡易位置示意</p>
+        <p class="mt-2 text-xl font-extrabold tracking-[-.03em]">認準「十一份／佳安路」</p>
+      </div>
+      <span class="grid size-11 shrink-0 place-items-center rounded-full bg-white text-[#526348] shadow-sm">
+        <Icon name="map" size={22} />
+      </span>
+    </div>
+
+    <div class="relative z-10 mt-16 grid max-w-[16rem] gap-3 sm:mt-24">
+      <div class="rounded-2xl bg-white/90 p-4 shadow-sm">
+        <p class="text-xs font-bold text-[#7c8179]">目的地</p>
+        <p class="mt-1 font-extrabold">石門大草坪</p>
+        <p class="mt-1 text-sm text-[#6b7569]">北區水資源分署十一份辦公區前</p>
+      </div>
+      <div class="rounded-2xl bg-[#2f3e2c] p-4 text-white shadow-sm">
+        <p class="text-xs font-bold text-white/60">不要走錯</p>
+        <p class="mt-1 text-sm font-bold leading-6">這裡不是石門水庫壩頂，也不是水庫收費入口。</p>
+      </div>
+    </div>
+
+    <div class="absolute bottom-5 right-5 z-10 max-w-[12rem] rounded-2xl bg-[#f6f3ea]/92 p-4 text-right shadow-sm sm:bottom-8 sm:right-8">
+      <p class="text-xs font-bold text-[#7c8179]">座標</p>
+      <p class="mt-1 font-mono text-sm font-bold">24.83509<br />121.24165</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="border-t border-black/8 bg-[#e9e5d8] pb-24 pt-14 md:pb-12">
+  <div class="container-shell grid gap-10 md:grid-cols-[1.2fr_.8fr] md:items-end">
+    <div>
+      <p class="text-2xl font-extrabold tracking-[-0.04em]">{site.name}</p>
+      <p class="mt-3 max-w-xl text-sm leading-7 text-[#667064]">
+        提供桃園龍潭石門大草坪的獨立行前資訊。本站不是政府機關或景點管理單位官方網站；交通、開放與現場規範可能因活動或維護調整。
+      </p>
+    </div>
+    <div class="md:text-right">
+      <nav class="flex flex-wrap gap-x-5 gap-y-3 text-sm font-bold md:justify-end" aria-label="頁尾導覽">
+        <a href="/about" class="hover:underline">關於本站與照片授權</a>
+        <a href="/privacy" class="hover:underline">隱私權政策</a>
+      </nav>
+      <p class="mt-4 text-xs text-[#7a8177]">© {new Date().getFullYear()} {site.domain}</p>
+    </div>
+  </div>
+</footer>
+
+<div class="fixed inset-x-3 bottom-3 z-40 md:hidden">
+  <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#35442f] px-5 font-extrabold text-white shadow-[0_18px_50px_rgba(27,40,25,.32)]">
+    開啟地圖導航
+    <span aria-hidden="true">→</span>
+  </a>
+</div>

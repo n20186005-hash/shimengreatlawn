@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+const title = `關於本站與照片授權｜${site.name}`;
+const description = '了解石門大草坪獨立旅遊資訊網站的內容原則、資料來源與照片授權。';
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+  <main id="main-content" class="prose-page min-h-screen pt-32">
+    <div class="container-shell max-w-4xl pb-24">
+      <p class="eyebrow">ABOUT THIS SITE</p>
+      <h1 class="mt-7">關於本站<br />與照片授權</h1>
+      <p class="body-lead mt-8">
+        ShimenGreatLawn.com 是面向一般旅客的獨立行前資訊網站，整理石門大草坪的交通、停車、季節景觀、親子活動與十一份地方故事。
+      </p>
+
+      <div class="mt-12 rounded-[1.75rem] border border-black/8 bg-white/60 p-6 sm:p-8">
+        <p class="!m-0 !text-[#344130]"><strong>重要說明：</strong>本站不是經濟部水利署、北區水資源分署、桃園市政府或任何景點管理單位的官方網站。</p>
+      </div>
+
+      <h2>內容原則</h2>
+      <p>我們優先回答旅客真正會在出發前查詢的問題，例如入口位置、是否免費、遮蔭、廁所、雨後草地、花季與周邊順遊。容易變動的資訊不寫成永久承諾，並提醒旅客以現場告示為準。</p>
+      <p>頁面中的歷史、場地使用與景觀資訊，主要參考桃園市政府觀光旅遊局、經濟部水利署及北區水資源分署公開資料。本站盡量不在主要遊覽頁面堆疊外部連結，來源統一整理於本頁。</p>
+
+      <h2>主要資料來源</h2>
+      <ul class="mt-5 grid gap-3 pl-5">
+        <li><a href="https://travel.tycg.gov.tw/zh-tw/travel/attraction/589" target="_blank" rel="noopener noreferrer nofollow">桃園觀光導覽網：佳安里（石門十一份）</a></li>
+        <li><a href="https://www.wra.gov.tw/epaper/Article_Detail.aspx?n=30173&s=7861" target="_blank" rel="noopener noreferrer nofollow">經濟部水利署：走讀十一份觀光文化園區</a></li>
+        <li><a href="https://www.wra.gov.tw/epaper/Article_Detail.aspx?n=30173&s=9109" target="_blank" rel="noopener noreferrer nofollow">經濟部水利署：十一份園區景觀與植栽</a></li>
+        <li><a href="https://www.wra.gov.tw/wranb/cp.aspx?n=36953" target="_blank" rel="noopener noreferrer nofollow">北區水資源分署：大草坪場地使用說明</a></li>
+      </ul>
+
+      <h2 id="image-credit">照片授權</h2>
+      <p>網站使用的照片均儲存在本站，不會從第三方網站熱連結。圖片為真實攝影作品，依原作者授權使用；為配合網頁載入，部分照片已裁切、調整尺寸並轉為 WebP。</p>
+
+      <div class="mt-8 overflow-hidden rounded-[1.5rem] border border-black/8 bg-white/55">
+        <div class="grid gap-2 border-b border-black/8 p-5 sm:grid-cols-[1fr_1fr]">
+          <strong>石管局大草坪、石管局日式房屋</strong>
+          <span class="text-[#687267]">作者 Foxy Who (^∀^)/，CC BY-SA 3.0</span>
+          <a class="text-sm sm:col-span-2" href="https://commons.wikimedia.org/wiki/File:%E7%9F%B3%E7%AE%A1%E5%B1%80%E5%A4%A7%E8%8D%89%E5%9D%AA_-_panoramio.jpg" target="_blank" rel="noopener noreferrer nofollow">查看原始草坪照片與授權</a>
+          <a class="text-sm sm:col-span-2" href="https://commons.wikimedia.org/wiki/File:%E7%9F%B3%E7%AE%A1%E5%B1%80_%E6%97%A5%E5%BC%8F%E6%88%BF%E5%B1%8B_-_panoramio.jpg" target="_blank" rel="noopener noreferrer nofollow">查看原始房屋照片與授權</a>
+        </div>
+        <div class="grid gap-2 border-b border-black/8 p-5 sm:grid-cols-[1fr_1fr]">
+          <strong>十一份集福宮與榕樹</strong>
+          <span class="text-[#687267]">作者 Outlookxp，CC BY-SA 4.0</span>
+          <a class="text-sm sm:col-span-2" href="https://commons.wikimedia.org/wiki/File:%E5%8D%81%E4%B8%80%E4%BB%BD%E9%9B%86%E7%A6%8F%E5%AE%AE%E5%81%B4%E7%85%A7%E8%88%87%E6%A6%95%E6%A8%B9.jpg" target="_blank" rel="noopener noreferrer nofollow">查看原始照片與授權</a>
+        </div>
+        <div class="grid gap-2 border-b border-black/8 p-5 sm:grid-cols-[1fr_1fr]">
+          <strong>十一份挑擔古道</strong>
+          <span class="text-[#687267]">作者 Foxy1219，CC BY-SA 3.0</span>
+          <a class="text-sm sm:col-span-2" href="https://commons.wikimedia.org/wiki/File:%E5%8D%81%E4%B8%80%E4%BB%BD%E6%8C%91%E6%93%94%E5%8F%A4%E9%81%93.jpg" target="_blank" rel="noopener noreferrer nofollow">查看原始照片與授權</a>
+        </div>
+        <div class="grid gap-2 p-5 sm:grid-cols-[1fr_1fr]">
+          <strong>流蘇花近照</strong>
+          <span class="text-[#687267]">作者 Tanaka Juuyoh，CC BY 2.0</span>
+          <a class="text-sm sm:col-span-2" href="https://commons.wikimedia.org/wiki/File:Chionanthus_retusus_-_Chinese_fringetree.jpg" target="_blank" rel="noopener noreferrer nofollow">查看原始照片與授權</a>
+        </div>
+      </div>
+
+      <h2>更新與更正</h2>
+      <p>資料最後核對日期為 <time datetime={site.updated}>2026 年 7 月 29 日</time>。若現場規範、交通動線或設施狀況已有明顯變化，部署維護者可直接修改專案中的 Astro 頁面，不需要資料庫或內容管理系統。</p>
+
+      <a class="btn-primary mt-10 no-underline" href="/">返回景點指南</a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

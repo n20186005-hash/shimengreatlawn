@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+const title = `隱私權政策｜${site.name}`;
+const description = 'ShimenGreatLawn.com 的隱私權、Google Analytics 4 與外部導航服務說明。';
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+  <main id="main-content" class="prose-page min-h-screen pt-32">
+    <div class="container-shell max-w-4xl pb-24">
+      <p class="eyebrow">PRIVACY</p>
+      <h1 class="mt-7">隱私權政策</h1>
+      <p class="body-lead mt-8">本站不提供登入、會員、留言、訂房、購票或付款功能，也不建立使用者資料庫。</p>
+
+      <h2>Google Analytics 4</h2>
+      <p>本站使用 Google Analytics 4（評估資源 ID：<code>G-HXM22WWPKP</code>）了解整體瀏覽趨勢，例如頁面瀏覽、裝置類型、來源與大致地區。這些資料用於改善內容與網站效能，不用於建立本站會員檔案。</p>
+      <p>Google Analytics 可能透過 Cookie 或類似技術處理資料。使用者可以透過瀏覽器設定限制或清除 Cookie，也可以使用瀏覽器的防追蹤功能。</p>
+
+      <h2>外部導航</h2>
+      <p>點擊「開啟導航」會前往 Google Maps。離開本站後，資料處理由該服務自己的隱私政策規範。本站不會取得使用者輸入到地圖服務的出發位置。</p>
+
+      <h2>伺服器與安全紀錄</h2>
+      <p>網站部署於 Cloudflare Workers 靜態資產服務。為維持安全、阻擋濫用與排查錯誤，基礎設施供應商可能短期處理 IP 位址、請求時間、瀏覽器資訊與錯誤紀錄。</p>
+
+      <h2>政策更新</h2>
+      <p>本政策最後更新於 <time datetime={site.updated}>2026 年 7 月 29 日</time>。若網站日後增加表單、廣告或其他資料處理功能，應同步更新本頁。</p>
+
+      <a class="btn-primary mt-10 no-underline" href="/">返回景點指南</a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

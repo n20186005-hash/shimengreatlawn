@@ -1,0 +1,550 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import VisitDiagram from '../components/VisitDiagram.astro';
+import { site } from '../data/site';
+
+const facts = [
+  { icon: 'ticket', label: '費用', value: '免費開放' },
+  { icon: 'clock', label: '建議停留', value: '1–2 小時' },
+  { icon: 'toilet', label: '公共設施', value: '周邊有廁所' },
+  { icon: 'sun', label: '遮蔭', value: '外圍較多' },
+  { icon: 'paw', label: '毛孩', value: '牽繩同行' },
+  { icon: 'car', label: '停車', value: '依現場指引' },
+] as const;
+
+const playCards = [
+  {
+    number: '01',
+    title: '鋪一張野餐墊',
+    text: '草坪中央視野最開闊，外圍樹下比較適合久坐。帶上飲水、防曬、垃圾袋，就能慢慢待一個下午。',
+    icon: 'sun',
+  },
+  {
+    number: '02',
+    title: '讓風箏升上去',
+    text: '少了高樓與密集設施，風箏有足夠空間起飛。假日請留意其他風箏線，也別在幼童密集處快速收線。',
+    icon: 'wind',
+  },
+  {
+    number: '03',
+    title: '陪孩子跑一圈',
+    text: '這裡的主角是草地，不是大型遊具。足球、飛盤、泡泡與簡單球類，往往比排隊玩設施更自在。',
+    icon: 'check',
+  },
+  {
+    number: '04',
+    title: '帶毛孩散步',
+    text: '空間寬敞，但仍有孩子、車輛與其他犬隻。建議全程牽繩、自備飲水，並主動清理排泄物。',
+    icon: 'paw',
+  },
+] as const;
+
+const seasons = [
+  { months: '2–3 月', title: '春日散步', text: '氣溫舒適，周邊宿舍區偶有春花，適合散步與拍攝老街廓。' },
+  { months: '3 月底–4 月', title: '流蘇花期', text: '白色細長花瓣像落在枝頭的雪，是一年中最具代表性的季節景觀。' },
+  { months: '5–9 月', title: '草地時光', text: '草色明亮，但正午炎熱、午後雷雨較常見，建議早晨或傍晚到訪。' },
+  { months: '10–1 月', title: '舒服放風', text: '體感較涼，適合長時間野餐與放風箏；風大時記得多帶一件外套。' },
+] as const;
+
+const itineraries = [
+  {
+    time: '30 分鐘',
+    title: '路過也能走走',
+    items: ['草坪外圈散步', '集福宮與老榕樹', '拍一張開闊全景'],
+  },
+  {
+    time: '90 分鐘',
+    title: '剛好的草地午後',
+    items: ['野餐或放風箏', '走看老宿舍街區', '到十一份園區休息'],
+  },
+  {
+    time: '半日',
+    title: '親子慢遊十一份',
+    items: ['石門大草坪', '十一份觀光文化園區', '文化路活魚用餐'],
+  },
+] as const;
+
+const faqs = [
+  {
+    q: '石門大草坪需要門票嗎？',
+    a: '一般休閒使用免費，不需要購票。若公司、學校或團體要舉辦正式活動，應依管理單位規定事先提出場地申請。',
+  },
+  {
+    q: '石門大草坪就是石門水庫嗎？',
+    a: '不是。大草坪位在龍潭十一份、北區水資源分署辦公區前，並不是水庫壩頂或收費入口。想看湖景與大壩，仍要另外前往石門水庫園區。',
+  },
+  {
+    q: '現場有廁所與遮蔭嗎？',
+    a: '辦公區周邊設有廁所，草坪外圍也有樹蔭與休息空間；但開放狀態可能因維護或時段調整。草坪中央遮蔭較少，晴天務必防曬。',
+  },
+  {
+    q: '可以搭帳篷、煮食或烤肉嗎？',
+    a: '不建議把這裡當露營地，也不要使用明火。小型遮陽用品與現場使用規範，請以當日告示及管理單位指引為準。',
+  },
+  {
+    q: '流蘇花大約什麼時候開？',
+    a: '通常以三月底到四月初最受關注，但每年會受溫度、降雨與風勢影響。花季造訪時，建議把「看到盛開」當作驚喜，而不是保證。',
+  },
+  {
+    q: '雨天或雨後適合去嗎？',
+    a: '雨天不適合草地活動；雨後草皮可能濕軟、積水或沾泥。帶幼童與毛孩時，可準備替換衣物、鞋袋和毛巾。',
+  },
+  {
+    q: '寵物可以進入嗎？',
+    a: '一般可在公共草地散步，建議全程牽繩、避開人群與辦公區出入口，並自行清理排泄物。若現場有臨時活動或管制，請配合告示。',
+  },
+] as const;
+
+const attractionSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      inLanguage: 'zh-Hant-TW',
+      description: site.description,
+    },
+    {
+      '@type': 'TouristAttraction',
+      '@id': `${site.url}/#attraction`,
+      name: '石門大草坪',
+      alternateName: ['石管局大草坪', '北水局大草坪', '石門十一份大草坪'],
+      description: '位於桃園市龍潭區十一份辦公區前的開闊公共草地，適合野餐、放風箏、親子活動與春季賞流蘇花。',
+      url: site.url,
+      image: [
+        `${site.url}/images/hero-1920.webp`,
+        `${site.url}/images/residence-1280.webp`,
+        `${site.url}/images/temple-1280.webp`,
+      ],
+      isAccessibleForFree: true,
+      publicAccess: true,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '佳安路2號周邊',
+        addressLocality: '龍潭區',
+        addressRegion: '桃園市',
+        postalCode: '325',
+        addressCountry: 'TW',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: site.latitude,
+        longitude: site.longitude,
+      },
+      containedInPlace: {
+        '@type': 'Place',
+        name: '十一份辦公園區',
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a,
+        },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout jsonLd={attractionSchema}>
+  <Header />
+
+  <main id="main-content">
+    <section class="relative min-h-[92svh] overflow-hidden bg-[#263326] text-white">
+      <picture class="absolute inset-0">
+        <source
+          type="image/webp"
+          srcset="/images/hero-640.webp 640w, /images/hero-960.webp 960w, /images/hero-1280.webp 1280w, /images/hero-1920.webp 1920w"
+          sizes="100vw"
+        />
+        <img
+          src="/images/hero-1280.webp"
+          alt="石門大草坪的開闊草地、樹木與藍天"
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+          class="h-full w-full object-cover object-center"
+        />
+      </picture>
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,29,18,.86)_0%,rgba(17,29,18,.58)_45%,rgba(17,29,18,.2)_74%,rgba(17,29,18,.38)_100%)]"></div>
+      <div class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#263326] to-transparent"></div>
+
+      <div class="container-shell relative z-10 flex min-h-[92svh] flex-col justify-end pb-16 pt-32 md:pb-24">
+        <div class="max-w-4xl">
+          <p class="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-extrabold tracking-[.15em] text-white/88 backdrop-blur-md">
+            桃園・龍潭・十一份
+          </p>
+          <h1 class="display-title mt-7 max-w-[10ch]">留一個下午<br />給風與草地</h1>
+          <p class="mt-7 max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
+            石門大草坪是一片免費、開闊的日常風景。帶一張野餐墊、一只風箏，或只是慢慢走過老宿舍與樹影，就很足夠。
+          </p>
+          <div class="mt-9 flex flex-wrap gap-3">
+            <a class="btn-primary !bg-white !text-[#33422f] hover:!bg-[#f5f4ec]" href="#visit">
+              先看行前資訊
+              <Icon name="arrow" size={18} />
+            </a>
+            <a class="btn-secondary !border-white/25 !bg-white/8 !text-white hover:!bg-white/14" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
+              <Icon name="map" size={18} />
+              開啟導航
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/16 pt-5 text-sm font-bold text-white/72">
+          <span>免費入園</span>
+          <span>親子友善</span>
+          <span>適合野餐</span>
+          <span>春季流蘇花</span>
+          <span>建議停留 1–2 小時</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit" class="relative -mt-px bg-[#263326] pb-20 text-white md:pb-28">
+      <div class="container-shell">
+        <div class="rounded-[2rem] border border-white/12 bg-white/8 p-5 backdrop-blur-xl sm:p-8">
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+            {facts.map((fact) => (
+              <div class="rounded-2xl bg-white/7 p-4">
+                <span class="grid size-9 place-items-center rounded-full bg-white/10 text-[#dfe8d7]">
+                  <Icon name={fact.icon} size={18} />
+                </span>
+                <p class="mt-5 text-xs font-bold tracking-[.13em] text-white/48">{fact.label}</p>
+                <p class="mt-1 font-extrabold">{fact.value}</p>
+              </div>
+            ))}
+          </div>
+          <div class="mt-5 flex gap-3 rounded-2xl bg-[#f0d9bf]/12 p-4 text-sm leading-6 text-white/72">
+            <span class="mt-0.5 shrink-0 text-[#f0d9bf]"><Icon name="info" size={18} /></span>
+            <p>戶外草坪一般可供民眾休閒使用；廁所、停車與局部區域可能因活動、維護或辦公需求調整，請以現場告示為準。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space overflow-hidden">
+      <div class="container-shell">
+        <SectionHeading
+          eyebrow="HOW TO ENJOY"
+          title="這裡沒有太多安排，<br />反而更好玩"
+          description="石門大草坪不是大型遊樂園。真正吸引人的，是足夠寬的草地、能把風看見的天空，以及一家人各自找到舒服位置的自由。"
+        />
+
+        <div class="mt-14 grid gap-4 md:grid-cols-2">
+          {playCards.map((card) => (
+            <article class="card group p-6 sm:p-8">
+              <div class="flex items-start justify-between gap-5">
+                <span class="grid size-12 place-items-center rounded-full bg-[#e3e8d7] text-[#526247] transition group-hover:-rotate-6 group-hover:scale-105">
+                  <Icon name={card.icon} size={22} />
+                </span>
+                <span class="font-mono text-sm font-bold text-[#9aa095]">{card.number}</span>
+              </div>
+              <h3 class="mt-10 text-2xl font-extrabold tracking-[-.035em]">{card.title}</h3>
+              <p class="mt-4 max-w-xl leading-8 text-[#697368]">{card.text}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-14 grid gap-5 lg:grid-cols-[1.35fr_.65fr]">
+          <figure class="photo-frame aspect-[4/3] lg:aspect-auto lg:min-h-[34rem]">
+            <picture>
+              <source type="image/webp" srcset="/images/lawn-640.webp 640w, /images/lawn-960.webp 960w, /images/lawn-1280.webp 1280w" sizes="(min-width: 1024px) 64vw, 100vw" />
+              <img src="/images/lawn-960.webp" alt="石門大草坪實景，中央是寬闊草地，外圍有高大樹木" width="1280" height="960" loading="lazy" />
+            </picture>
+          </figure>
+          <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
+            <div class="rounded-[1.8rem] bg-[#a45f47] p-7 text-white sm:p-9">
+              <p class="text-xs font-extrabold tracking-[.15em] text-white/60">GOOD TO KNOW</p>
+              <p class="mt-5 text-3xl font-extrabold tracking-[-.04em]">中央曬太陽，<br />外圍找樹蔭</p>
+              <p class="mt-5 leading-7 text-white/74">晴天正午的草坪很曝曬。準備帽子、防曬與足量飲水，久坐則優先選擇外圍樹下。</p>
+            </div>
+            <div class="rounded-[1.8rem] border border-black/8 bg-[#dce5d4] p-7 sm:p-9">
+              <p class="text-xs font-extrabold tracking-[.15em] text-[#6d7a64]">AFTER RAIN</p>
+              <p class="mt-5 text-3xl font-extrabold tracking-[-.04em]">雨後先等等，<br />草地會說話</p>
+              <p class="mt-5 leading-7 text-[#65705f]">鞋底容易沾泥、草皮也可能濕軟。帶孩子或毛孩時，準備替換衣物與毛巾會安心很多。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="season" class="section-space bg-[#e8eadf]">
+      <div class="container-shell">
+        <div class="grid gap-14 lg:grid-cols-[.78fr_1.22fr] lg:items-center">
+          <div>
+            <SectionHeading
+              eyebrow="SEASONS"
+              title="春天的白，<br />是流蘇寫下的"
+              description="每到春季，細長白色花瓣像一層輕雪落在枝頭。花期通常落在三月底至四月初，但真正盛開的時間，仍會隨每年的天氣移動。"
+            />
+            <div class="mt-8 rounded-2xl border border-black/8 bg-white/55 p-5 text-sm leading-7 text-[#667064]">
+              <strong class="text-[#33412f]">照片說明：</strong>下方為流蘇花真實近照，用來辨認花形；不是石門大草坪當日花況。花季現場仍以實際開花狀態為準。
+            </div>
+          </div>
+
+          <figure class="photo-frame aspect-[3/2]">
+            <picture>
+              <source type="image/webp" srcset="/images/flower-640.webp 640w, /images/flower-960.webp 960w, /images/flower-1279.webp 1279w" sizes="(min-width: 1024px) 56vw, 100vw" />
+              <img src="/images/flower-960.webp" alt="流蘇花細長潔白的花瓣近照" width="1279" height="853" loading="lazy" />
+            </picture>
+          </figure>
+        </div>
+
+        <div class="mt-16 grid border-y border-black/10 md:grid-cols-4">
+          {seasons.map((season, index) => (
+            <article class:list={['py-7 md:px-6 md:py-9', index > 0 && 'border-t border-black/10 md:border-l md:border-t-0']}>
+              <p class="font-mono text-xs font-bold tracking-[.12em] text-[#8b6d5f]">{season.months}</p>
+              <h3 class="mt-4 text-xl font-extrabold tracking-[-.03em]">{season.title}</h3>
+              <p class="mt-3 text-sm leading-7 text-[#687267]">{season.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="story" class="section-space bg-[#293329] text-white">
+      <div class="container-shell">
+        <div class="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-end">
+          <SectionHeading
+            eyebrow="SHIYIFEN"
+            title="一片草坪，<br />也是一段水庫生活史"
+            description="十一份不只是一個地名。石門水庫興建期間，這裡形成辦公、宿舍與日常生活聚落；留下來的低矮房舍、寬闊街廓與大樹，讓散步多了一層時間感。"
+          />
+          <div class="lg:justify-self-end lg:text-right">
+            <p class="max-w-lg text-sm leading-7 text-white/58">
+              「十一份」名稱有一種地方說法，與早年樟腦製作的腦灶數量有關；這是地方歷史敘事之一，並非唯一確定解釋。
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-16 grid gap-5 lg:grid-cols-12">
+          <figure class="photo-frame aspect-[4/3] lg:col-span-7 lg:row-span-2">
+            <picture>
+              <source type="image/webp" srcset="/images/residence-640.webp 640w, /images/residence-960.webp 960w, /images/residence-1280.webp 1280w" sizes="(min-width: 1024px) 58vw, 100vw" />
+              <img src="/images/residence-960.webp" alt="十一份石管局宿舍區的日式房屋實景" width="1280" height="960" loading="lazy" />
+            </picture>
+          </figure>
+
+          <div class="rounded-[1.8rem] border border-white/12 bg-white/7 p-7 lg:col-span-5 sm:p-9">
+            <p class="font-mono text-xs font-bold tracking-[.15em] text-[#b9c7a8]">1950s–1960s</p>
+            <h3 class="mt-5 text-2xl font-extrabold tracking-[-.035em]">水庫工程，帶來一座完整生活區</h3>
+            <p class="mt-4 leading-8 text-white/64">為了工程人員辦公與居住，十一份陸續形成宿舍、辦公空間、市場及生活設施。今天仍能從街廓與房舍看見當年的規劃痕跡。</p>
+          </div>
+
+          <div class="rounded-[1.8rem] bg-[#a45f47] p-7 lg:col-span-5 sm:p-9">
+            <p class="font-mono text-xs font-bold tracking-[.15em] text-white/60">TODAY</p>
+            <h3 class="mt-5 text-2xl font-extrabold tracking-[-.035em]">老宿舍活化，但不是每一棟都能進入</h3>
+            <p class="mt-4 leading-8 text-white/74">部分空間被活化為文化與休憩場域，其他建築仍可能有居住、辦公或維護用途。拍照以公共區域為主，不進入私人庭院。</p>
+          </div>
+        </div>
+
+        <div class="mt-5 grid gap-5 md:grid-cols-2">
+          <figure class="photo-frame aspect-[4/3]">
+            <picture>
+              <source type="image/webp" srcset="/images/temple-640.webp 640w, /images/temple-960.webp 960w, /images/temple-1280.webp 1280w" sizes="(min-width: 768px) 50vw, 100vw" />
+              <img src="/images/temple-960.webp" alt="十一份集福宮與旁邊的大榕樹實景" width="1280" height="960" loading="lazy" />
+            </picture>
+            <figcaption class="sr-only">十一份集福宮與大榕樹</figcaption>
+          </figure>
+          <div class="flex flex-col justify-center rounded-[1.8rem] border border-white/12 bg-white/5 p-7 sm:p-10">
+            <p class="eyebrow !text-[#c8d4b9]">LOCAL LANDMARK</p>
+            <h3 class="mt-6 text-3xl font-extrabold tracking-[-.04em]">集福宮與老榕樹</h3>
+            <p class="mt-5 max-w-xl leading-8 text-white/64">草坪旁的土地公廟與大榕樹，是十一份生活記憶的一部分。它不以規模取勝，卻讓開闊草地多了一個安定的地方坐標。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="transport" class="section-space">
+      <div class="container-shell">
+        <div class="grid gap-14 lg:grid-cols-[.82fr_1.18fr] lg:items-center">
+          <div>
+            <SectionHeading
+              eyebrow="GETTING THERE"
+              title="導航要對，<br />入口就不難找"
+              description="請直接以「石門大草坪」或座標導航，並確認終點位在龍潭十一份、佳安路一帶。最常見的錯誤，是被帶到石門水庫壩頂或收費入口。"
+            />
+
+            <div class="mt-9 grid gap-4">
+              <div class="card flex gap-4 p-5">
+                <span class="grid size-10 shrink-0 place-items-center rounded-full bg-[#dfe6d7] text-[#526247]"><Icon name="car" size={19} /></span>
+                <div>
+                  <h3 class="font-extrabold">自駕與停車</h3>
+                  <p class="mt-2 text-sm leading-7 text-[#687267]">優先使用正式停車格與現場開放區域，不占用辦公出入口、消防通道或宿舍私人空間。花季與活動日請預留找車位時間。</p>
+                </div>
+              </div>
+              <div class="card flex gap-4 p-5">
+                <span class="grid size-10 shrink-0 place-items-center rounded-full bg-[#e8dcd3] text-[#995d47]"><Icon name="map" size={19} /></span>
+                <div>
+                  <h3 class="font-extrabold">公共運輸</h3>
+                  <p class="mt-2 text-sm leading-7 text-[#687267]">部分公車及假日觀光路線會停靠石門大草坪或北水局附近，但班次可能調整。出發當天應再查即時動態，避免只看舊遊記。</p>
+                </div>
+              </div>
+            </div>
+
+            <a class="btn-primary mt-8" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
+              <Icon name="map" size={19} />
+              導航至石門大草坪
+            </a>
+            <p class="fine-print mt-4">地址參考：{site.address}<br />座標：{site.latitude}, {site.longitude}</p>
+          </div>
+
+          <VisitDiagram />
+        </div>
+
+        <figure class="mt-14 overflow-hidden rounded-[2rem] border border-black/8 bg-white/60 shadow-[0_20px_60px_rgba(46,61,42,.14)]">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.841600735194!2d121.24165!3d24.835089999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34683d9796cee9e7%3A0xf7b638d45539169c!2z55-z6Zeo5aSn6I2J5Z2q!5e0!3m2!1szh-CN!2stw!4v1785322457765!5m2!1szh-CN!2stw"
+            title="石門大草坪 Google 地圖"
+            width="600"
+            height="450"
+            class="block aspect-[4/3] h-auto w-full border-0 sm:aspect-[16/9]"
+            style="border:0;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+          <figcaption class="flex flex-wrap items-center justify-between gap-2 border-t border-black/8 px-5 py-4 text-sm text-[#667064] sm:px-6">
+            <span>石門大草坪位置與周邊道路</span>
+            <a class="font-extrabold text-[#465239] underline decoration-[#465239]/25 underline-offset-4" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
+              在 Google 地圖中開啟
+            </a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-space bg-[#dedfce]">
+      <div class="container-shell">
+        <SectionHeading
+          eyebrow="PACK LIGHT"
+          title="帶得剛剛好，<br />草地就會很好玩"
+          description="這不是需要塞滿行程的景點。幾樣真正有用的東西，比一大袋裝備更重要。"
+        />
+
+        <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            ['野餐墊', '選擇底部防潮材質，雨後尤其有用。'],
+            ['飲水與防曬', '中央草坪曝曬，夏季更要補充水分。'],
+            ['風箏或飛盤', '輕量、簡單，最符合這裡的空間。'],
+            ['垃圾袋與毛巾', '把垃圾帶走，也能處理泥土與草屑。'],
+          ].map(([title, text], index) => (
+            <article class="rounded-[1.6rem] bg-[#f6f3ea] p-6">
+              <p class="font-mono text-xs font-bold text-[#a45f47]">0{index + 1}</p>
+              <h3 class="mt-7 text-xl font-extrabold tracking-[-.03em]">{title}</h3>
+              <p class="mt-3 text-sm leading-7 text-[#687267]">{text}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-5 rounded-[1.8rem] bg-[#33412f] p-7 text-white sm:p-9">
+          <div class="grid gap-6 lg:grid-cols-[.7fr_1.3fr] lg:items-center">
+            <h3 class="text-2xl font-extrabold tracking-[-.035em]">不建議帶什麼？</h3>
+            <p class="leading-8 text-white/68">明火烹煮設備、大型露營裝備、會破壞草皮的固定器材，以及讓音量影響他人的擴音設備。公共草地的舒服，來自每個人都留一點空間。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-shell">
+        <div class="grid gap-14 lg:grid-cols-[.72fr_1.28fr]">
+          <div class="lg:sticky lg:top-28 lg:self-start">
+            <SectionHeading
+              eyebrow="ROUTES"
+              title="停多久，<br />都有一條舒服路線"
+              description="把石門大草坪當成龍潭行程裡的放鬆節點，通常比只為打卡停五分鐘更有意思。"
+            />
+          </div>
+
+          <div class="grid gap-5">
+            {itineraries.map((route, index) => (
+              <article class="card grid gap-6 p-6 sm:grid-cols-[8rem_1fr] sm:p-8">
+                <div>
+                  <p class="font-mono text-xs font-bold tracking-[.12em] text-[#9a6552]">ROUTE 0{index + 1}</p>
+                  <p class="mt-3 text-2xl font-extrabold text-[#526247]">{route.time}</p>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-extrabold tracking-[-.035em]">{route.title}</h3>
+                  <ol class="mt-5 grid gap-3">
+                    {route.items.map((item, itemIndex) => (
+                      <li class="flex items-center gap-3 text-[#657064]">
+                        <span class="grid size-7 shrink-0 place-items-center rounded-full bg-[#e1e6d9] text-xs font-extrabold text-[#526247]">{itemIndex + 1}</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </article>
+            ))}
+
+            <figure class="photo-frame mt-2 aspect-[4/3]">
+              <picture>
+                <source type="image/webp" srcset="/images/trail-640.webp 640w, /images/trail-960.webp 960w, /images/trail-1024.webp 1024w" sizes="(min-width: 1024px) 60vw, 100vw" />
+                <img src="/images/trail-960.webp" alt="十一份挑擔古道石板路與木欄杆實景" width="1024" height="768" loading="lazy" />
+              </picture>
+            </figure>
+            <p class="fine-print px-2">想把行程拉長，可再認識十一份周邊古道與石門水庫沿線；出發前仍應確認步道路況與自身體力。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space bg-[#293329] text-white">
+      <div class="container-shell">
+        <SectionHeading
+          eyebrow="FAQ"
+          title="出發前，<br />最常被問的幾件事"
+          description="以下整理一般造訪情境。臨時活動、花季交通或維護管制，仍以現場公告為準。"
+        />
+
+        <div class="mt-14 max-w-4xl divide-y divide-white/12 border-y border-white/12">
+          {faqs.map((item, index) => (
+            <details class="group py-6">
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-6 font-extrabold sm:text-lg">
+                <span class="flex gap-4">
+                  <span class="font-mono text-xs text-white/35">0{index + 1}</span>
+                  <span>{item.q}</span>
+                </span>
+                <span class="relative mt-1 block size-5 shrink-0 text-white/60">
+                  <span class="absolute left-0 top-1/2 h-px w-full bg-current"></span>
+                  <span class="absolute left-1/2 top-0 h-full w-px bg-current transition group-open:rotate-90 group-open:opacity-0"></span>
+                </span>
+              </summary>
+              <p class="ml-10 mt-5 max-w-3xl leading-8 text-white/62">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="relative overflow-hidden bg-[#a45f47] py-20 text-white sm:py-28">
+      <div class="absolute -right-28 -top-28 size-96 rounded-full border border-white/10"></div>
+      <div class="absolute -right-12 -top-12 size-64 rounded-full border border-white/10"></div>
+      <div class="container-shell relative z-10 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div>
+          <p class="eyebrow !text-white/70">READY TO GO</p>
+          <h2 class="mt-6 max-w-[12ch] text-4xl font-extrabold leading-[1.05] tracking-[-.05em] sm:text-6xl">把天空留大一點，今天就去草地走走</h2>
+          <p class="mt-6 max-w-2xl leading-8 text-white/72">不用趕景點，也不用塞滿計畫。確認天氣、帶好飲水，再把剩下的時間交給風。</p>
+        </div>
+        <a class="btn-primary !bg-white !text-[#7e4938] hover:!bg-[#f7eee8]" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
+          <Icon name="map" size={19} />
+          開啟導航
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

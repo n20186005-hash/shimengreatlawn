@@ -35,7 +35,11 @@ const parkingFaqs = [
   },
   {
     q: '導航為什麼會被帶到石門水庫壩頂？',
-    a: '「石門大草坪」與「石門水庫」名稱相近，導航常把人帶往水庫壩頂或收費入口。請直接以「石門大草坪」或座標（24.83509, 121.24165）導航，並確認終點在龍潭十一份、佳安路一帶。',
+    a: '「石門大草坪」與「石門水庫」名稱相近，導航常把人帶往水庫壩頂或收費入口。搜尋「大石門停車場」跳出的也大多是石門水庫園區的收費停車，與大草坪不是同一處。請直接以「石門大草坪」或座標（24.83509, 121.24165）導航，並確認終點在龍潭十一份、佳安路一帶。',
+  },
+  {
+    q: '花季或連假有大草坪的接駁車嗎？',
+    a: '大草坪本身並無固定接駁車。若人潮過大，相關交通引導、臨時管制或周邊停車調度，會由管理單位與龍潭區公所公告，請以當日現場與官方消息為準。自行開車者建議錯開尖峰、提早抵達，比等接駁更穩。',
   },
 ];
 
@@ -219,7 +223,9 @@ const jsonLd = {
             <div class="card mt-9 flex gap-4 p-5">
               <span class="grid size-10 shrink-0 place-items-center rounded-full bg-[#dfe6d7] text-[#526247]"><Icon name="info" size={19} /></span>
               <p class="text-sm leading-7 text-[#687267]">
-                下車後步行距離與路線請以現場指標為準；若與舊遊記不符，以當日實際站牌與動態資訊為主。也可結合 Google 地圖的即時大眾運輸導航一起規劃。
+                行經石門水庫／北水局一帶的桃園客運路線，下車後仍需再接駁或步行至十一份、佳安路。實際路線、班次與站牌，請查
+                <a class="font-extrabold text-[#465239] underline decoration-[#465239]/30 underline-offset-4" href="https://ebus.tycg.gov.tw/ebus/travel-planner" target="_blank" rel="noopener noreferrer nofollow">桃園市公車動態系統</a>
+                或桃園客運時刻表，並以當日現場為準。
               </p>
             </div>
             <a class="btn-primary mt-8" href={site.mapUrl} target="_blank" rel="noopener noreferrer">

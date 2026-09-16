@@ -1,0 +1,90 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+import { site, sources, reviewSourceNote } from '../data/site';
+
+/** 資料來源區塊：增強 E-E-A-T，Google 外部連結全部保留 */
+---
+
+<section id="sources" class="section-space border-t border-black/8 bg-[#f6f3ea]">
+  <div class="container-shell">
+    <SectionHeading
+      eyebrow="SOURCES"
+      title="資料來源<br />與引用說明"
+      description="本站為獨立整理的行前資訊，不是景點管理單位官方網站。以下列出主要引用來源，供旅客自行核對最新狀態。"
+    />
+
+    <div class="mt-14 grid gap-5 lg:grid-cols-[1.25fr_.75fr]">
+      <ul class="grid gap-3">
+        {
+          sources.map((source) => (
+            <li class="rounded-[1.5rem] border border-black/8 bg-white/62 p-5 sm:p-6">
+              <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <a
+                  class="font-extrabold text-[#3d4a38] underline decoration-[#3d4a38]/25 underline-offset-4 hover:decoration-[#3d4a38]/70"
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                >
+                  {source.label}
+                </a>
+                {'note' in source && source.note && (
+                  <span class="font-mono text-xs font-bold tracking-[.08em] text-[#a45f47]">
+                    {source.note}
+                  </span>
+                )}
+              </div>
+              {'extra' in source && source.extra && (
+                <p class="mt-3 text-sm leading-7 text-[#687267]">{source.extra}</p>
+              )}
+              {!('extra' in source && source.extra) && source.url.includes('google') && (
+                <p class="mt-3 text-sm leading-7 text-[#687267]">{reviewSourceNote}</p>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="grid content-start gap-5">
+        <div class="rounded-[1.8rem] bg-[#33412f] p-7 text-white sm:p-8">
+          <p class="eyebrow !text-[#c8d4b9]">OFFICIAL SOURCE</p>
+          <h3 class="mt-6 text-2xl font-extrabold leading-snug tracking-[-.035em]">
+            官方旅遊資訊入口
+          </h3>
+          <p class="mt-5 leading-8 text-white/70">
+            如需官方最新公告、活動與區域旅遊資訊，請前往 {site.govtTourismName}官方網站。
+          </p>
+          <a
+            class="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-extrabold text-[#33412f] transition hover:-translate-y-0.5"
+            href={site.govtTourismUrl}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
+            {site.govtTourismName}
+            <Icon name="arrow" size={17} />
+          </a>
+        </div>
+
+        <div class="rounded-[1.8rem] border border-black/8 bg-[#e7e9dd] p-7 sm:p-8">
+          <h3 class="text-xl font-extrabold tracking-[-.03em]">評價引用說明</h3>
+          <p class="mt-4 text-sm leading-7 text-[#657064]">
+            評價 · 同步時間 {site.ratingSyncedAt}
+          </p>
+          <p class="mt-3 text-sm leading-7 text-[#657064]">{reviewSourceNote}</p>
+          <a
+            class="mt-5 inline-flex text-sm font-extrabold text-[#465239] underline decoration-[#465239]/30 underline-offset-4"
+            href={site.mapsShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            點擊查看谷歌地圖全部評價 ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p class="fine-print mt-8 px-1">
+      最後核對日期：{site.updatedText}。Google、Google 地圖與 Google Maps 為 Google LLC 之商標；本站與 Google LLC 無隸屬或授權關係。
+    </p>
+  </div>
+</section>

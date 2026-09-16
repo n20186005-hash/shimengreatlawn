@@ -5,7 +5,26 @@ import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import VisitDiagram from '../components/VisitDiagram.astro';
-import { site } from '../data/site';
+import RatingStars from '../components/RatingStars.astro';
+import ReviewsSection from '../components/ReviewsSection.astro';
+import SourcesSection from '../components/SourcesSection.astro';
+import WeatherSection from '../components/WeatherSection.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import SeasonStrategy from '../components/SeasonStrategy.astro';
+import PlansSection from '../components/PlansSection.astro';
+import StewardshipSection from '../components/StewardshipSection.astro';
+import { site, ratingSourceLine } from '../data/site';
+
+/** 歸屬層級：景點 → 城市 → 省市 → 國家 */
+const geoHierarchy = [site.name, site.city, site.state, site.country];
+
+const breadcrumbs = [
+  { name: '首頁', url: `${site.url}/` },
+  { name: site.country, url: `${site.url}/#about` },
+  { name: site.state, url: `${site.url}/#about` },
+  { name: site.city, url: `${site.url}/#about` },
+  { name: site.name, url: `${site.url}/#about` },
+];
 
 const facts = [
   { icon: 'ticket', label: '費用', value: '免費開放' },
@@ -66,6 +85,11 @@ const itineraries = [
     title: '親子慢遊十一份',
     items: ['石門大草坪', '十一份觀光文化園區', '文化路活魚用餐'],
   },
+  {
+    time: '全日',
+    title: '龍潭水與草的一日',
+    items: ['石門大草坪野餐放風', '十一份觀光文化園區', '石門水庫園區與壩頂', '文化路活魚晚餐'],
+  },
 ] as const;
 
 const faqs = [
@@ -97,8 +121,29 @@ const faqs = [
     q: '寵物可以進入嗎？',
     a: '一般可在公共草地散步，建議全程牽繩、避開人群與辦公區出入口，並自行清理排泄物。若現場有臨時活動或管制，請配合告示。',
   },
+  {
+    q: '石門大草坪在哪裡？地址與座標是多少？',
+    a: '石門大草坪位於臺灣桃園市龍潭區佳安里佳安路2號、北區水資源分署十一份辦公區前，座標約為北緯 24.83509、東經 121.24165。導航請直接搜尋「石門大草坪」，避免被帶往石門水庫壩頂。',
+  },
+  {
+    q: '石門大草坪周邊還能順遊哪裡？',
+    a: '步行可達十一份觀光文化園區與集福宮老榕樹，開車短程可銜接石門水庫園區與文化路活魚街。把大草坪當作龍潭行程中的放鬆節點最剛好。',
+  },
+  {
+    q: '天氣與帶傘怎麼判斷？',
+    a: '本頁提供即時天氣與未來七日預報，並依當日降雨機率與降水，給出「出門要不要帶傘」的建議。本地午後雷陣雨常見，出發前再看一次最準。',
+  },
+  {
+    q: '周邊有推薦的餐廳、住宿或商家嗎？',
+    a: '本站為非營利科普網站，不個別推薦特定商家。周邊以活魚餐飲、地方小吃、便利商店、超市與旅宿為主，可依當日需求自行選擇，並以現場營業狀況與價格為準。',
+  },
 ] as const;
 
+/**
+ * 結構化資料（JSON-LD）
+ * 注意：Google 地圖的評分與評價僅在頁面呈現，
+ * 依第三方內容引用規範不寫入 aggregateRating / review，避免被判為違規。
+ */
 const attractionSchema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -107,18 +152,28 @@ const attractionSchema = {
       '@id': `${site.url}/#website`,
       url: site.url,
       name: site.name,
+      alternateName: [site.shortName, `${site.city}${site.name}`, site.nameEn],
       inLanguage: 'zh-Hant-TW',
       description: site.description,
+      publisher: { '@id': `${site.url}/#attraction` },
     },
     {
       '@type': 'TouristAttraction',
       '@id': `${site.url}/#attraction`,
-      name: '石門大草坪',
-      alternateName: ['石管局大草坪', '北水局大草坪', '石門十一份大草坪'],
-      description: '位於桃園市龍潭區十一份辦公區前的開闊公共草地，適合野餐、放風箏、親子活動與春季賞流蘇花。',
+      name: site.name,
+      alternateName: [
+        site.shortName,
+        `${site.city}${site.name}`,
+        '石管局大草坪',
+        '北水局大草坪',
+        '石門十一份大草坪',
+        site.nameEn,
+      ],
+      description: `Comprehensive visitor guide to ${site.nameEn} (${site.name}) in ${site.city}, ${site.state}, ${site.country}. 位於${site.state}${site.city}十一份辦公區前的開闊公共草地，適合野餐、放風箏、親子活動與春季賞流蘇花。`,
       url: site.url,
       image: [
         `${site.url}/images/hero-1920.webp`,
+        `${site.url}/images/lawn-1280.webp`,
         `${site.url}/images/residence-1280.webp`,
         `${site.url}/images/temple-1280.webp`,
       ],
@@ -126,24 +181,37 @@ const attractionSchema = {
       publicAccess: true,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: '佳安路2號周邊',
-        addressLocality: '龍潭區',
-        addressRegion: '桃園市',
-        postalCode: '325',
-        addressCountry: 'TW',
+        streetAddress: site.streetAddress,
+        addressLocality: site.city,
+        addressRegion: site.state,
+        postalCode: site.postalCode,
+        addressCountry: site.countryCode,
       },
       geo: {
         '@type': 'GeoCoordinates',
         latitude: site.latitude,
         longitude: site.longitude,
       },
+      hasMap: site.mapsShareUrl,
+      sameAs: [site.mapsShareUrl, site.govtTourismUrl],
       containedInPlace: {
         '@type': 'Place',
         name: '十一份辦公園區',
       },
     },
     {
+      '@type': 'BreadcrumbList',
+      '@id': `${site.url}/#breadcrumb`,
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        ...(index < breadcrumbs.length - 1 ? { item: crumb.url } : {}),
+      })),
+    },
+    {
       '@type': 'FAQPage',
+      '@id': `${site.url}/#faq`,
       mainEntity: faqs.map((item) => ({
         '@type': 'Question',
         name: item.q,
@@ -170,7 +238,7 @@ const attractionSchema = {
         />
         <img
           src="/images/hero-1280.webp"
-          alt="石門大草坪的開闊草地、樹木與藍天"
+          alt="石門大草坪（Shimen Great Lawn）— 龍潭區、臺灣主視覺：開闊草地、樹木與藍天"
           width="1920"
           height="1080"
           fetchpriority="high"
@@ -185,10 +253,32 @@ const attractionSchema = {
           <p class="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-extrabold tracking-[.15em] text-white/88 backdrop-blur-md">
             桃園・龍潭・十一份
           </p>
-          <h1 class="display-title mt-7 max-w-[10ch]">留一個下午<br />給風與草地</h1>
+          <h1 class="display-title mt-7 max-w-[13ch]">石門大草坪<br /><span class="text-white/62">龍潭區的一片風與草地</span></h1>
           <p class="mt-7 max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
             石門大草坪是一片免費、開闊的日常風景。帶一張野餐墊、一只風箏，或只是慢慢走過老宿舍與樹影，就很足夠。
           </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3 rounded-2xl border border-white/15 bg-white/8 px-5 py-4 backdrop-blur-md">
+            <RatingStars rating={site.googleRating} size={22} class="text-[#f2b544]" label={`Google 地圖評分 ${site.googleRatingValue} 分`} />
+            <p class="text-sm font-extrabold text-white">
+              <span class="text-lg">{site.googleRatingValue}</span>
+              <span class="ml-1 text-white/70">／5</span>
+              <span class="ml-2 text-white/78">共 {site.googleReviewCountText} 則評價</span>
+            </p>
+            <a
+              class="text-sm font-extrabold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white"
+              href={site.mapsShareUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              點擊查看谷歌地圖全部評價 ↗
+            </a>
+          </div>
+          <p class="fine-print mt-3 !text-white/55">
+            {ratingSourceLine}
+            <a class="ml-1 underline decoration-white/30 underline-offset-4 hover:decoration-white/70" href={site.mapsShareUrl} target="_blank" rel="noopener noreferrer">點擊查看谷歌地圖全部評價↗</a>
+          </p>
+
           <div class="mt-9 flex flex-wrap gap-3">
             <a class="btn-primary !bg-white !text-[#33422f] hover:!bg-[#f5f4ec]" href="#visit">
               先看行前資訊
@@ -211,6 +301,8 @@ const attractionSchema = {
       </div>
     </section>
 
+    <WeatherSection />
+
     <section id="visit" class="relative -mt-px bg-[#263326] pb-20 text-white md:pb-28">
       <div class="container-shell">
         <div class="rounded-[2rem] border border-white/12 bg-white/8 p-5 backdrop-blur-xl sm:p-8">
@@ -229,6 +321,79 @@ const attractionSchema = {
             <span class="mt-0.5 shrink-0 text-[#f0d9bf]"><Icon name="info" size={18} /></span>
             <p>戶外草坪一般可供民眾休閒使用；廁所、停車與局部區域可能因活動、維護或辦公需求調整，請以現場告示為準。</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section-space bg-[#f6f3ea]">
+      <div class="container-shell">
+        <nav class="flex flex-wrap items-center gap-2 text-sm text-[#7a8177]" aria-label="麵包屑">
+          {breadcrumbs.map((crumb, index) => (
+            <span class="flex items-center gap-2">
+              {index > 0 && <span aria-hidden="true">/</span>}
+              {index === breadcrumbs.length - 1 ? (
+                <span class="font-extrabold text-[#33412f]" aria-current="page">{crumb.name}</span>
+              ) : (
+                <a class="transition hover:text-[#33412f] hover:underline" href={crumb.url}>{crumb.name}</a>
+              )}
+            </span>
+          ))}
+        </nav>
+
+        <h2 class="section-title !max-w-[20ch] mt-8">關於石門大草坪：龍潭區十一份的開闊草地</h2>
+
+        <div class="mt-12 grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-start">
+          <div>
+            <p class="body-lead">
+              歡迎來到<strong class="text-[#33412f]">石門大草坪</strong>（Shimen Great Lawn）。不論被稱作「石管局大草坪」、「北水局大草坪」或「石門十一份大草坪」，指的都是同一片草地。它位於<strong class="text-[#33412f]">臺灣桃園市龍潭區</strong>十一份、北區水資源分署辦公區前，是造訪龍潭與石門水庫一帶時最常被安排進行程的休息節點。
+            </p>
+            <p class="mt-6 leading-8 text-[#687267]">
+              這裡沒有圍籬、沒有門票，也沒有固定的遊覽動線。一片夠大的草皮、一圈可以遮蔭的老樹，加上十一份宿舍區留下來的低矮房舍，就構成它最完整的樣子。
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-2xl border border-black/8 bg-white/60 px-5 py-4 text-sm font-bold text-[#5b665a]">
+              <span class="text-[#7a8177]">歸屬層級</span>
+              {geoHierarchy.map((item, index) => (
+                <span class="flex items-center gap-3">
+                  {index > 0 && <span class="text-[#a9b0a5]" aria-hidden="true">→</span>}
+                  <span class={index === 0 ? 'text-[#33412f]' : ''}>{item}</span>
+                </span>
+              ))}
+            </div>
+
+            <p class="mt-8 leading-8 text-[#687267]">
+              造訪<strong class="text-[#33412f]">石門大草坪</strong>時，旅客可以順道認識周邊的歷史地標與景點，包括<strong class="text-[#33412f]">十一份觀光文化園區</strong>與<strong class="text-[#33412f]">石門水庫</strong>；兩者都在短程車程內，很適合與草地時光排在同一天。
+            </p>
+          </div>
+
+          <dl class="grid gap-4 rounded-[1.8rem] border border-black/8 bg-white/62 p-6 sm:p-8">
+            <div class="border-b border-black/8 pb-4">
+              <dt class="text-xs font-extrabold tracking-[.15em] text-[#7a8177]">官方全稱</dt>
+              <dd class="mt-2 text-xl font-extrabold tracking-[-.03em]">{site.name}</dd>
+              <dd class="mt-1 text-sm text-[#7a8177]">{site.nameEn}</dd>
+            </div>
+            <div class="border-b border-black/8 pb-4">
+              <dt class="text-xs font-extrabold tracking-[.15em] text-[#7a8177]">常用俗稱</dt>
+              <dd class="mt-2 leading-7">石管局大草坪、北水局大草坪、石門十一份大草坪</dd>
+            </div>
+            <div class="border-b border-black/8 pb-4">
+              <dt class="text-xs font-extrabold tracking-[.15em] text-[#7a8177]">地址</dt>
+              <dd class="mt-2 leading-7">{site.address}</dd>
+            </div>
+            <div class="border-b border-black/8 pb-4">
+              <dt class="text-xs font-extrabold tracking-[.15em] text-[#7a8177]">座標</dt>
+              <dd class="mt-2 font-mono text-sm font-bold">{site.latitude}, {site.longitude}</dd>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <dt class="text-xs font-extrabold tracking-[.15em] text-[#7a8177]">Google 地圖分類</dt>
+                <dd class="mt-2 font-extrabold">{site.category}</dd>
+              </div>
+              <a class="text-sm font-extrabold text-[#465239] underline decoration-[#465239]/30 underline-offset-4" href={site.mapsShareUrl} target="_blank" rel="noopener noreferrer">
+                在 Google 地圖查看
+              </a>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
@@ -313,12 +478,14 @@ const attractionSchema = {
       </div>
     </section>
 
+    <SeasonStrategy />
+
     <section id="story" class="section-space bg-[#293329] text-white">
       <div class="container-shell">
         <div class="grid gap-14 lg:grid-cols-[1fr_1fr] lg:items-end">
           <SectionHeading
             eyebrow="SHIYIFEN"
-            title="一片草坪，<br />也是一段水庫生活史"
+            title="石門大草坪與十一份：<br />一片草坪，也是一段水庫生活史"
             description="十一份不只是一個地名。石門水庫興建期間，這裡形成辦公、宿舍與日常生活聚落；留下來的低矮房舍、寬闊街廓與大樹，讓散步多了一層時間感。"
           />
           <div class="lg:justify-self-end lg:text-right">
@@ -363,8 +530,23 @@ const attractionSchema = {
             <p class="mt-5 max-w-xl leading-8 text-white/64">草坪旁的土地公廟與大榕樹，是十一份生活記憶的一部分。它不以規模取勝，卻讓開闊草地多了一個安定的地方坐標。</p>
           </div>
         </div>
+
+        <div class="mt-5 grid gap-5 lg:grid-cols-2">
+          <div class="rounded-[1.8rem] border border-white/12 bg-white/5 p-7 sm:p-9">
+            <p class="font-mono text-xs font-bold tracking-[.15em] text-[#b9c7a8]">LOCAL FOLKLORE</p>
+            <h3 class="mt-5 text-2xl font-extrabold tracking-[-.035em]">集福宮與老榕樹的說法</h3>
+            <p class="mt-4 leading-8 text-white/64">地方上把這棵大榕樹與土地公廟，視為守護角落的標記；榕樹愈大，往往代表這個聚落安定得愈久。它不寫進官方簡介，卻是居民日常會點頭打招呼的地方。</p>
+          </div>
+          <div class="rounded-[1.8rem] bg-[#a45f47] p-7 sm:p-9">
+            <p class="font-mono text-xs font-bold tracking-[.15em] text-white/60">LOCAL MEMORY</p>
+            <h3 class="mt-5 text-2xl font-extrabold tracking-[-.035em]">流蘇與宿舍的記憶</h3>
+            <p class="mt-4 leading-8 text-white/74">十一份宿舍區的流蘇，是職員與家屬在生活周邊種下的風景，後來成為每年春天最被期待的白色花季。它提醒我們：這片草地的美，來自長期有人好好生活其中。</p>
+          </div>
+        </div>
       </div>
     </section>
+
+    <ReviewsSection />
 
     <section id="transport" class="section-space">
       <div class="container-shell">
@@ -372,7 +554,7 @@ const attractionSchema = {
           <div>
             <SectionHeading
               eyebrow="GETTING THERE"
-              title="導航要對，<br />入口就不難找"
+              title="石門大草坪怎麼去？<br />導航要對，入口就不難找"
               description="請直接以「石門大草坪」或座標導航，並確認終點位在龍潭十一份、佳安路一帶。最常見的錯誤，是被帶到石門水庫壩頂或收費入口。"
             />
 
@@ -398,6 +580,10 @@ const attractionSchema = {
               導航至石門大草坪
             </a>
             <p class="fine-print mt-4">地址參考：{site.address}<br />座標：{site.latitude}, {site.longitude}</p>
+            <a class="mt-3 inline-flex items-center gap-2 text-sm font-extrabold text-[#465239] underline decoration-[#465239]/30 underline-offset-4" href="/transport">
+              詳細交通停車攻略
+              <Icon name="arrow" size={16} />
+            </a>
           </div>
 
           <VisitDiagram />
@@ -405,9 +591,9 @@ const attractionSchema = {
 
         <figure class="mt-14 overflow-hidden rounded-[2rem] border border-black/8 bg-white/60 shadow-[0_20px_60px_rgba(46,61,42,.14)]">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.841600735194!2d121.24165!3d24.835089999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34683d9796cee9e7%3A0xf7b638d45539169c!2z55-z6Zeo5aSn6I2J5Z2q!5e0!3m2!1szh-CN!2stw!4v1785322457765!5m2!1szh-CN!2stw"
-            title="石門大草坪 Google 地圖"
-            width="600"
+            src={site.mapsEmbedSrc}
+            title="石門大草坪 Google 地圖嵌入"
+            width="100%"
             height="450"
             class="block aspect-[4/3] h-auto w-full border-0 sm:aspect-[16/9]"
             style="border:0;"
@@ -416,14 +602,57 @@ const attractionSchema = {
             referrerpolicy="strict-origin-when-cross-origin"
           ></iframe>
           <figcaption class="flex flex-wrap items-center justify-between gap-2 border-t border-black/8 px-5 py-4 text-sm text-[#667064] sm:px-6">
-            <span>石門大草坪位置與周邊道路</span>
+            <span>石門大草坪位置與周邊道路（{site.address}）</span>
             <a class="font-extrabold text-[#465239] underline decoration-[#465239]/25 underline-offset-4" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
               在 Google 地圖中開啟
             </a>
           </figcaption>
         </figure>
+
+        <p class="fine-print mt-5 px-1">
+          如需官方最新公告與區域旅遊資訊，請前往
+          <a class="font-extrabold text-[#465239] underline decoration-[#465239]/30 underline-offset-4" href={site.govtTourismPortalUrl} target="_blank" rel="noopener noreferrer nofollow">
+            {site.govtTourismName}官方網站
+          </a>
+          。
+        </p>
       </div>
     </section>
+
+    <section id="landmarks" class="section-space bg-[#e8eadf]">
+      <div class="container-shell">
+        <SectionHeading
+          eyebrow="NEARBY LANDMARKS"
+          title="石門大草坪周邊地標<br />與順遊景點"
+          description="大草坪本身只需要一兩個小時，真正的彈性來自周邊。以下兩個地標，是安排龍潭半日或一日行程時最常被搭配的組合。"
+        />
+
+        <div class="mt-14 grid gap-5 md:grid-cols-2">
+          <article class="rounded-[2rem] border border-black/8 bg-white/62 p-7 sm:p-9">
+            <p class="font-mono text-xs font-bold tracking-[.15em] text-[#a45f47]">LANDMARK 01</p>
+            <h3 class="mt-5 text-2xl font-extrabold tracking-[-.035em]">{site.nearbyLandmark1}</h3>
+            <p class="mt-4 leading-8 text-[#687267]">
+              與大草坪同屬十一份生活區，由舊宿舍與辦公空間活化而來。適合在草地活動後轉為室內或樹蔭下的散步，也比較好安排餐飲與休息。
+            </p>
+            <p class="mt-5 text-sm font-bold text-[#7a8177]">步行可達 · 建議停留 40–60 分鐘</p>
+          </article>
+          <article class="rounded-[2rem] border border-black/8 bg-white/62 p-7 sm:p-9">
+            <p class="font-mono text-xs font-bold tracking-[.15em] text-[#a45f47]">LANDMARK 02</p>
+            <h3 class="mt-5 text-2xl font-extrabold tracking-[-.035em]">{site.nearbyLandmark2}</h3>
+            <p class="mt-4 leading-8 text-[#687267]">
+              從十一份出發的短程車程即可抵達，是看湖景、大壩與水庫園區的主力景點。請注意它與大草坪是兩個不同的入口與收費規則。
+            </p>
+            <p class="mt-5 text-sm font-bold text-[#7a8177]">開車約 10 分鐘 · 建議停留 2–3 小時</p>
+          </article>
+        </div>
+
+        <p class="mt-6 fine-print px-1">
+          造訪<strong class="text-[#5b665a]">石門大草坪</strong>時，旅客可以順道認識周邊的歷史地標與景點，包括<strong class="text-[#5b665a]">{site.nearbyLandmark1}</strong>與<strong class="text-[#5b665a]">{site.nearbyLandmark2}</strong>。開放時間與收費仍以各景點現場公告為準。
+        </p>
+      </div>
+    </section>
+
+    <ServicesSection />
 
     <section class="section-space bg-[#dedfce]">
       <div class="container-shell">
@@ -501,6 +730,10 @@ const attractionSchema = {
       </div>
     </section>
 
+    <PlansSection />
+
+    <StewardshipSection />
+
     <section id="faq" class="section-space bg-[#293329] text-white">
       <div class="container-shell">
         <SectionHeading
@@ -528,6 +761,8 @@ const attractionSchema = {
         </div>
       </div>
     </section>
+
+    <SourcesSection />
 
     <section class="relative overflow-hidden bg-[#a45f47] py-20 text-white sm:py-28">
       <div class="absolute -right-28 -top-28 size-96 rounded-full border border-white/10"></div>

@@ -1,0 +1,94 @@
+---
+import Icon from './Icon.astro';
+import RatingStars from './RatingStars.astro';
+import SectionHeading from './SectionHeading.astro';
+import { site, reviewSourceNote } from '../data/site';
+
+/**
+ * Google 地圖使用者評價區塊
+ * - 評分與評價數僅在頁面呈現，不寫入 JSON-LD 結構化資料
+ * - 必須保留同步時間與來源聲明，並保留 Google 地圖全部評價連結
+ */
+---
+
+<section id="reviews" class="section-space border-y border-black/8 bg-[#f1efe4]">
+  <div class="container-shell">
+    <SectionHeading
+      eyebrow="GOOGLE MAPS REVIEWS"
+      title={`${site.googleReviewCountText} 則 Google 地圖評價，<br />都指向同一片草地`}
+      description="本站不自架評價系統，也不代為轉載逐則評價文字。下列評分與評價數為 Google 地圖使用者評價的同步摘要，完整內容請以 Google 地圖為準。"
+    />
+
+    <div class="mt-14 grid gap-5 lg:grid-cols-[.85fr_1.15fr]">
+      <div class="rounded-[2rem] border border-black/8 bg-white/72 p-7 sm:p-9">
+        <div class="flex flex-wrap items-end gap-x-5 gap-y-2">
+          <p class="text-6xl font-extrabold leading-none tracking-[-.06em] text-[#33412f] sm:text-7xl">
+            {site.googleRatingValue}
+          </p>
+          <div class="pb-1">
+            <RatingStars rating={site.googleRating} size={26} class="text-[#e39b2c]" label={`Google 地圖評分 ${site.googleRatingValue} 分`} />
+            <p class="mt-2 text-sm font-extrabold text-[#526247]">
+              共 {site.googleReviewCountText} 則評價
+            </p>
+          </div>
+        </div>
+
+        <dl class="mt-8 grid gap-3 border-t border-black/8 pt-6 text-sm">
+          <div class="flex justify-between gap-4">
+            <dt class="text-[#7a8177]">Google 地圖分類</dt>
+            <dd class="font-extrabold">{site.category}</dd>
+          </div>
+          <div class="flex justify-between gap-4">
+            <dt class="text-[#7a8177]">地址</dt>
+            <dd class="text-right font-extrabold">{site.address}</dd>
+          </div>
+          <div class="flex justify-between gap-4">
+            <dt class="text-[#7a8177]">同步時間</dt>
+            <dd class="font-extrabold">{site.ratingSyncedAt}</dd>
+          </div>
+        </dl>
+
+        <div class="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a
+            class="btn-primary"
+            href={site.mapsShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="map" size={19} />
+            在谷歌地圖查看全部評價
+          </a>
+          <a
+            class="text-sm font-extrabold text-[#465239] underline decoration-[#465239]/30 underline-offset-4"
+            href={site.mapsShareUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            點擊查看谷歌地圖全部評價 ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="grid gap-5">
+        <div class="rounded-[2rem] bg-[#33412f] p-7 text-white sm:p-9">
+          <p class="eyebrow !text-[#c8d4b9]">HOW WE USE REVIEWS</p>
+          <h3 class="mt-6 text-2xl font-extrabold leading-snug tracking-[-.035em] sm:text-3xl">
+            評分是參考，不是保證
+          </h3>
+          <p class="mt-5 leading-8 text-white/70">
+            評價會隨時間、季節與個人期待改變。出發前可以把 {site.googleRatingValue} 分與 {site.googleReviewCountText} 則評價當作整體印象，再搭配當天花況、天氣與現場公告一起判斷。
+          </p>
+          <ul class="mt-7 grid gap-3 text-sm leading-7 text-white/64">
+            <li class="flex gap-3"><span class="mt-3 size-1.5 shrink-0 rounded-full bg-[#b9c7a8]"></span><span>花季與連續假日期間人潮較多，評價中常見「停車要早點到」的提醒。</span></li>
+            <li class="flex gap-3"><span class="mt-3 size-1.5 shrink-0 rounded-full bg-[#b9c7a8]"></span><span>草地活動高度依賴天氣，雨後濕軟是最常被提到的變因。</span></li>
+            <li class="flex gap-3"><span class="mt-3 size-1.5 shrink-0 rounded-full bg-[#b9c7a8]"></span><span>多數評價聚焦於「空間寬敞、適合親子與毛孩」這一點。</span></li>
+          </ul>
+        </div>
+
+        <p class="fine-print px-1">
+          {reviewSourceNote}。評分與評價數僅於本頁呈現，未納入本站結構化資料；Google 地圖為 Google LLC 之商標，相關評價版權歸原作者與 Google 地圖所有。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

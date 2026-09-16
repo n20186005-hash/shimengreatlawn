@@ -1,6 +1,38 @@
 ---
 interface Props {
-  name: 'arrow' | 'map' | 'clock' | 'ticket' | 'toilet' | 'sun' | 'paw' | 'car' | 'wind' | 'flower' | 'info' | 'check' | 'menu' | 'close';
+  name:
+    | 'arrow'
+    | 'map'
+    | 'clock'
+    | 'ticket'
+    | 'toilet'
+    | 'sun'
+    | 'paw'
+    | 'car'
+    | 'wind'
+    | 'flower'
+    | 'info'
+    | 'check'
+    | 'menu'
+    | 'close'
+    | 'cloud'
+    | 'umbrella'
+    | 'utensils'
+    | 'bed'
+    | 'cart'
+    | 'fuel'
+    | 'leaf'
+    | 'camera'
+    | 'baby'
+    | 'wheelchair'
+    | 'droplet'
+    | 'mountain'
+    | 'tree'
+    | 'book'
+    | 'compass'
+    | 'shirt'
+    | 'backpack'
+    | 'alert';
   size?: number;
   class?: string;
 }
@@ -34,4 +66,22 @@ const common = {
   {name === 'check' && <path d="m5 12 4 4L19 6"/>}
   {name === 'menu' && <><path d="M4 7h16M4 12h16M4 17h16"/></>}
   {name === 'close' && <><path d="m6 6 12 12M18 6 6 18"/></>}
+  {name === 'cloud' && <path d="M7 18a4 4 0 0 1 .5-7.97A5.5 5.5 0 0 1 18 10.5a3.5 3.5 0 0 1-.5 7.5Z"/>}
+  {name === 'umbrella' && <><path d="M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9Z"/><path d="M12 12v7a2 2 0 0 0 4 0"/></>}
+  {name === 'utensils' && <><path d="M4 3v7a2 2 0 0 0 4 0V3M6 11v10"/><path d="M15 3c-1.5 0-2.5 2-2.5 5s1 4 2.5 4v9"/></>}
+  {name === 'bed' && <><path d="M3 18v-7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7"/><path d="M3 14h18M3 18v2M21 18v2M7 11V9h4v2"/></>}
+  {name === 'cart' && <><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/><path d="M3 4h2l2.2 11h11l2-7H6"/></>}
+  {name === 'fuel' && <><path d="M5 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16"/><path d="M3 21h14M14 8h2a2 2 0 0 1 2 2v6a1.5 1.5 0 0 0 3 0V9l-3-3"/></>}
+  {name === 'leaf' && <><path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 16-9 0 12-4 16-9 16Z"/><path d="M4 21c2-6 6-9 11-11"/></>}
+  {name === 'camera' && <><path d="M3 8a2 2 0 0 1 2-2h2l1.5-2h7L19 6h0a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.5"/></>}
+  {name === 'baby' && <><circle cx="12" cy="6" r="2.2"/><path d="M12 9v6m0 0-3 6m3-6 3 6M8 11h8"/></>}
+  {name === 'wheelchair' && <><circle cx="9" cy="5" r="2"/><path d="M9 7v6h4l3 6M9 13a5 5 0 0 0 5 5"/></>}
+  {name === 'droplet' && <path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11Z"/>}
+  {name === 'mountain' && <path d="m3 19 6-11 4 6 2-3 6 8Z"/>}
+  {name === 'tree' && <><path d="M12 22v-6"/><path d="M12 16a5 5 0 0 0 4-8 5 5 0 0 0-8 0 5 5 0 0 0 4 8Z"/></>}
+  {name === 'book' && <><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2Z"/><path d="M5 4v14"/></>}
+  {name === 'compass' && <><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5Z"/></>}
+  {name === 'shirt' && <><path d="M8 3 4 6l2 3 2-1v10h8V8l2 1 2-3-4-3"/><path d="M8 3a4 4 0 0 0 8 0"/></>}
+  {name === 'backpack' && <><path d="M5 9a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v11H5Z"/><path d="M9 6V5a3 3 0 0 1 6 0v1"/><path d="M5 13h14M10 20v-4h4v4"/></>}
+  {name === 'alert' && <><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></>}
 </svg>

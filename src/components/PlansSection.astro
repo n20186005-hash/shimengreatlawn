@@ -1,0 +1,89 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const plans = [
+  {
+    icon: 'baby',
+    badge: 'SLOW & FAMILY',
+    title: '親子家庭',
+    forWhom: '帶幼童、重視陰涼與安全節奏的家庭',
+    steps: [
+      '從草坪外圍樹蔭鋪野餐墊，少曬少跑。',
+      '準備泡泡、簡單球類等低門檻遊戲。',
+      '走到集福宮與老榕樹認識地方地標。',
+      '轉往十一份園區休息、補給與用餐。',
+    ],
+    tip: '避開正午中央草坪；備替換衣物、防曬與飲水；毛孩請與孩童活動區保持距離。',
+  },
+  {
+    icon: 'camera',
+    badge: 'LIGHT & STORY',
+    title: '攝影自然',
+    forWhom: '喜歡風景、花卉與老建築線條的拍攝者',
+    steps: [
+      '清晨或黃昏到訪，光線柔和、人潮較少。',
+      '把握三月底至四月的流蘇花期。',
+      '用大草坪開闊全景交代空間感。',
+      '以集福宮、老榕樹與宿舍街廓收人文。',
+    ],
+    tip: '尊重私人庭院不進入；三腳架與器材注意風；花況以現場為準。',
+  },
+  {
+    icon: 'wheelchair',
+    badge: 'EASY & ACCESS',
+    title: '低體力 / 無障礙',
+    forWhom: '長輩、行動不便者或想少走路的旅人',
+    steps: [
+      '停車後就近在外圍停留，減少步行。',
+      '選樹蔭下坐姿賞景或野餐。',
+      '沿園區平坦動線短距散步。',
+      '善用室內或遮蔽處休息與補給。',
+    ],
+    tip: '優先選平地與設施旁；出發前確認當日開放廁所；雨天後避開泥濘草徑。',
+  },
+] as const;
+---
+
+<section id="plans" class="section-space">
+  <div class="container-shell">
+    <SectionHeading
+      eyebrow="PLANS BY TRAVELER"
+      title="按人群定制的遊覽方案"
+      description="同樣一片草地，因為出行組成不同，舒服的玩法也不一樣。以下三條路線，按節奏與體力挑選即可。"
+    />
+
+    <div class="mt-14 grid gap-5 lg:grid-cols-3">
+      {
+        plans.map((plan) => (
+          <article class="card flex flex-col p-6 sm:p-8">
+            <div class="flex items-center justify-between">
+              <span class="grid size-12 place-items-center rounded-full bg-[#e3e8d7] text-[#526247]">
+                <Icon name={plan.icon} size={22} />
+              </span>
+              <span class="font-mono text-xs font-bold tracking-[.12em] text-[#9a6552]">{plan.badge}</span>
+            </div>
+            <h3 class="mt-6 text-2xl font-extrabold tracking-[-.035em]">{plan.title}</h3>
+            <p class="mt-2 text-sm leading-7 text-[#7a8177]">{plan.forWhom}</p>
+
+            <ol class="mt-6 grid gap-3">
+              {plan.steps.map((step, i) => (
+                <li class="flex items-start gap-3 text-[#657064]">
+                  <span class="grid size-7 shrink-0 place-items-center rounded-full bg-[#e1e6d9] text-xs font-extrabold text-[#526247]">
+                    {i + 1}
+                  </span>
+                  <span class="leading-7">{step}</span>
+                </li>
+              ))}
+            </ol>
+
+            <p class="mt-6 rounded-xl bg-[#f1f3ea] px-4 py-3 text-sm leading-6 text-[#5b665a]">
+              <span class="font-extrabold text-[#33412f]">小提醒 ｜</span>
+              {plan.tip}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

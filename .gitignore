@@ -1,6 +1,40 @@
+# ── 依賴 ──
 node_modules/
+.pnp/
+.pnp.cjs
+
+# ── 建置產物 ──
 dist/
 .astro/
+.output/
+
+# ── Cloudflare / Workers ──
 .wrangler/
 .dev.vars
+
+# ── 套件鎖定檔（本專案使用 pnpm，忽略 npm 產生的 lock）──
+package-lock.json
+
+# ── 環境變數 ──
+.env
+.env.*
+!.env.example
+
+# ── 日誌 ──
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── 編輯器與作業系統 ──
+.vscode/
+.idea/
 .DS_Store
+Thumbs.db
+
+# ── 快取與暫存 ──
+.cache/
+.turbo/
+coverage/
+tmp/

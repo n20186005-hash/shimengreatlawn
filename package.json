@@ -8,6 +8,7 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "pwa:icons": "node scripts/generate-icons.mjs",
     "cf:dev": "pnpm build && wrangler dev",
     "deploy": "pnpm build && wrangler deploy",
     "check": "astro check"

@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://shimengreatlawn.com/</loc>
-    <lastmod>2026-07-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-09-16</lastmod>
+    <image:image>
+      <image:loc>https://shimengreatlawn.com/images/hero-1920.webp</image:loc>
+      <image:title>石門大草坪主視覺：開闊草地、樹木與藍天</image:title>
+      <image:caption>桃園市龍潭區十一份的石門大草坪，中央為寬闊草皮，外圍有高大樹木遮蔭。</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://shimengreatlawn.com/images/lawn-1280.webp</image:loc>
+      <image:title>石門大草坪實景</image:title>
+      <image:caption>石門大草坪中央的寬闊草地，適合野餐、放風箏與親子活動。</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://shimengreatlawn.com/images/residence-1280.webp</image:loc>
+      <image:title>十一份石管局宿舍區日式房屋</image:title>
+      <image:caption>十一份宿舍區留下的低矮日式房舍，是石門水庫興建時期的職員宿舍。</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://shimengreatlawn.com/images/temple-1280.webp</image:loc>
+      <image:title>十一份集福宮與大榕樹</image:title>
+      <image:caption>草坪旁的土地公廟集福宮與一旁的老榕樹。</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://shimengreatlawn.com/images/trail-1024.webp</image:loc>
+      <image:title>十一份挑擔古道</image:title>
+      <image:caption>十一份挑擔古道的石板路與木欄杆。</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://shimengreatlawn.com/images/flower-1279.webp</image:loc>
+      <image:title>流蘇花近照</image:title>
+      <image:caption>流蘇花細長潔白的花瓣近照，用來辨認花形。</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://shimengreatlawn.com/transport</loc>
+    <lastmod>2026-09-16</lastmod>
   </url>
   <url>
     <loc>https://shimengreatlawn.com/about</loc>
-    <lastmod>2026-07-29</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-09-16</lastmod>
   </url>
   <url>
     <loc>https://shimengreatlawn.com/privacy</loc>
-    <lastmod>2026-07-29</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
+    <lastmod>2026-09-16</lastmod>
   </url>
 </urlset>

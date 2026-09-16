@@ -1,0 +1,82 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+const rows = [
+  {
+    season: '春季',
+    months: '3–5 月',
+    weather: '氣溫回暖，偶有鋒面通過；早晚溫差較明顯，降雨開始增多。',
+    lawn: '三月底至四月的流蘇花期是年度代表景觀，草色轉綠、視野清新。',
+    activity: '散步賞花、拍攝老街廓與宿舍區、輕野餐。',
+    note: '花況受溫度與降雨影響，把「看到盛開」當作驚喜；賞花日人潮較多。',
+  },
+  {
+    season: '夏季',
+    months: '6–8 月',
+    weather: '高溫炎熱，午後雷陣雨頻繁；紫外線強，濕度偏高。',
+    lawn: '草色最為明亮飽滿，但正午中央草坪曝曬、體感悶熱。',
+    activity: '早晨或傍晚野餐、放風箏；搭配周邊水域行程。',
+    note: '重點防曬與補水，午後避開中央草坪；雷雨時先撤至遮蔽處。',
+  },
+  {
+    season: '秋季',
+    months: '9–11 月',
+    weather: '氣溫漸涼、天氣相對穩定；偶有颱風尾與秋雨，風力增強。',
+    lawn: '草況舒適、適合長時間停留，是家庭與團體活動的旺季前段。',
+    activity: '全日野餐、風箏、親子遊戲、慢走老宿舍街區。',
+    note: '留意颱風與秋雨後的草地濕軟；強風日注意風箏與輕物。',
+  },
+  {
+    season: '冬季',
+    months: '12–2 月',
+    weather: '偏涼、東北季風強，體感溫度低於實際氣溫。',
+    lawn: '草色轉深、空曠風大，是放風箏與散步的清朗季節。',
+    activity: '放風箏、長時間野餐、安靜散步。',
+    note: '多帶一件保暖外套；強風日注意帽子與物品被吹走。',
+  },
+] as const;
+---
+
+<section id="season-strategy" class="section-space bg-[#e8eadf]">
+  <div class="container-shell">
+    <SectionHeading
+      eyebrow="SEASONAL STRATEGY"
+      title="四季遊覽策略表"
+      description="依本地常年氣候特徵整理，作為安排行程的長期參考；當日的即時天氣與降雨，請看本頁的即時天氣模組。"
+    />
+
+    <div class="mt-12 overflow-x-auto rounded-[2rem] border border-black/8 bg-white/62 shadow-[0_20px_60px_rgba(46,61,42,.10)]">
+      <table class="w-full min-w-[860px] border-collapse text-left">
+        <thead>
+          <tr class="border-b border-black/10 text-sm font-extrabold text-[#33412f]">
+            <th class="w-[12%] px-5 py-5">季節</th>
+            <th class="w-[22%] px-5 py-5">氣象特徵</th>
+            <th class="w-[22%] px-5 py-5">草地表現</th>
+            <th class="w-[22%] px-5 py-5">適合活動</th>
+            <th class="w-[22%] px-5 py-5">注意與準備</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-black/8">
+          {
+            rows.map((row, i) => (
+              <tr class:list={[i % 2 === 1 && 'bg-white/35']}>
+                <td class="px-5 py-6 align-top">
+                  <p class="text-xl font-extrabold tracking-[-.03em] text-[#33412f]">{row.season}</p>
+                  <p class="mt-1 font-mono text-xs font-bold text-[#8b6d5f]">{row.months}</p>
+                </td>
+                <td class="px-5 py-6 align-top text-sm leading-7 text-[#687267]">{row.weather}</td>
+                <td class="px-5 py-6 align-top text-sm leading-7 text-[#687267]">{row.lawn}</td>
+                <td class="px-5 py-6 align-top text-sm leading-7 text-[#687267]">{row.activity}</td>
+                <td class="px-5 py-6 align-top text-sm leading-7 text-[#687267]">{row.note}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="fine-print mt-6 px-1">
+      表中所列為常態趨勢，並非當日預報。夏季午後雷陣雨、颱風與鋒面都可能改變草況與可停留時間，出發前仍應確認天氣。
+    </p>
+  </div>
+</section>

@@ -9,9 +9,17 @@ import { site } from '../data/site';
       <p class="mt-3 max-w-xl text-sm leading-7 text-[#667064]">
         提供桃園龍潭石門大草坪的獨立行前資訊。本站不是政府機關或景點管理單位官方網站；交通、開放與現場規範可能因活動或維護調整。
       </p>
+      {/* NAP：名稱、地址與座標，與 Google 商家檔案及 JSON-LD 保持一致 */}
+      <address class="mt-4 not-italic text-sm leading-7 text-[#667064]">
+        <strong class="font-extrabold text-[#344130]">{site.name}</strong>（{site.nameEn}）<br />
+        {site.address}<br />
+        座標 {site.latitude}, {site.longitude}
+      </address>
     </div>
     <div class="md:text-right">
       <nav class="flex flex-wrap gap-x-5 gap-y-3 text-sm font-bold md:justify-end" aria-label="頁尾導覽">
+        <a href="/transport" class="hover:underline">交通停車</a>
+        <a href="/#sources" class="hover:underline">資料來源</a>
         <a href="/about" class="hover:underline">關於本站與照片授權</a>
         <a href="/privacy" class="hover:underline">隱私權政策</a>
       </nav>

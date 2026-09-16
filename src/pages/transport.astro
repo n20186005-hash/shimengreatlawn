@@ -1,0 +1,324 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import VisitDiagram from '../components/VisitDiagram.astro';
+import { site } from '../data/site';
+
+const title = '石門大草坪停車與交通｜路線、停車與導航攻略';
+const description =
+  '石門大草坪在桃園龍潭十一份。整理自駕停車、公車路線、假日避塞車與導航建議；停車收費與開放區域以現場告示為準。';
+
+const breadcrumbs = [
+  { name: '首頁', url: `${site.url}/` },
+  { name: '交通停車', url: `${site.url}/transport` },
+];
+
+const parkingFaqs = [
+  {
+    q: '石門大草坪停車要收費嗎？',
+    a: '大草坪位於北區水資源分署十一份辦公區前，現場是否設有收費停車格、收費標準與可停放區域，會隨管理單位規劃與活動調整。出發前與抵達時，請以現場告示與管理單位指引為準，本站不標示固定費率。',
+  },
+  {
+    q: '自駕可以停在哪裡？',
+    a: '優先使用正式停車格與現場開放區域，不占用辦公出入口、消防通道或宿舍私人空間。花季、連假與活動日車流量明顯增加，建議預留找車位的時間，並留意是否有臨時管制。',
+  },
+  {
+    q: '假日或花季會不會很難停車？',
+    a: '會。流蘇花季（約 3 月底至 4 月初）與連假是明顯高峰，周邊停車與道路都更擁擠。錯開上午 10 點後的入園高峰、提早出發，或改搭大眾運輸，都能顯著降低找車位的難度。',
+  },
+  {
+    q: '可以搭大眾運輸到石門大草坪嗎？',
+    a: '部分公車及假日觀光路線會停靠石門大草坪或北水局附近，但班次可能調整。出發當天應再查即時動態與站牌資訊，避免只看舊遊記；下車後步行距離請以現場路線為準。',
+  },
+  {
+    q: '導航為什麼會被帶到石門水庫壩頂？',
+    a: '「石門大草坪」與「石門水庫」名稱相近，導航常把人帶往水庫壩頂或收費入口。請直接以「石門大草坪」或座標（24.83509, 121.24165）導航，並確認終點在龍潭十一份、佳安路一帶。',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': `${site.url}/transport#webpage`,
+      url: `${site.url}/transport`,
+      name: title,
+      description,
+      inLanguage: 'zh-Hant-TW',
+      isPartOf: { '@id': `${site.url}/#website` },
+      breadcrumb: { '@id': `${site.url}/transport#breadcrumb` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${site.url}/transport#breadcrumb`,
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: crumb.url,
+      })),
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${site.url}/transport#faq`,
+      mainEntity: parkingFaqs.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} jsonLd={jsonLd}>
+  <Header />
+
+  <main id="main-content">
+    <section class="relative min-h-[78svh] overflow-hidden bg-[#263326] text-white">
+      <picture class="absolute inset-0">
+        <source
+          type="image/webp"
+          srcset="/images/trail-640.webp 640w, /images/trail-960.webp 960w, /images/trail-1024.webp 1024w"
+          sizes="100vw"
+        />
+        <img
+          src="/images/trail-960.webp"
+          alt="十一份挑擔古道石板路與木欄杆實景"
+          width="1024"
+          height="768"
+          fetchpriority="high"
+          class="h-full w-full object-cover object-center"
+        />
+      </picture>
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(17,29,18,.88)_0%,rgba(17,29,18,.6)_45%,rgba(17,29,18,.26)_78%)]"></div>
+
+      <div class="container-shell relative z-10 flex min-h-[78svh] flex-col justify-end pb-16 pt-32 md:pb-24">
+        <div class="max-w-4xl">
+          <p class="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-extrabold tracking-[.15em] text-white/88 backdrop-blur-md">
+            桃園・龍潭・十一份
+          </p>
+          <h1 class="display-title mt-7 max-w-[16ch]">石門大草坪<br /><span class="text-white/62">怎麼去？導航要對，入口就不難找</span></h1>
+          <p class="mt-7 max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
+            大草坪位在龍潭十一份、北區水資源分署辦公區前，不是石門水庫壩頂。本頁整理自駕停車、大眾運輸、假日避塞車與導航建議；停車收費與可停放區域，請以現場告示為準。
+          </p>
+
+          <div class="mt-9 flex flex-wrap gap-3">
+            <a class="btn-primary !bg-white !text-[#33422f] hover:!bg-[#f5f4ec]" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
+              <Icon name="map" size={18} />
+              開啟導航
+            </a>
+            <a class="btn-secondary !border-white/25 !bg-white/8 !text-white hover:!bg-white/14" href="#parking">
+              看停車建議
+              <Icon name="arrow" size={18} />
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/16 pt-5 text-sm font-bold text-white/72">
+          <span>免費開放</span>
+          <span>認準十一份佳安路</span>
+          <span>避開水庫壩頂</span>
+          <span>花季請早到</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-shell">
+        <div class="grid gap-14 lg:grid-cols-[.82fr_1.18fr] lg:items-center">
+          <div>
+            <SectionHeading
+              eyebrow="GETTING THERE"
+              title="先認準「十一份／佳安路」"
+              description="請以「石門大草坪」或座標導航，並確認終點位在龍潭十一份、佳安路一帶。最常見的錯誤，是被帶到石門水庫壩頂或收費入口。"
+            />
+
+            <div class="mt-9 grid gap-4">
+              <div class="card flex gap-4 p-5">
+                <span class="grid size-10 shrink-0 place-items-center rounded-full bg-[#dfe6d7] text-[#526247]"><Icon name="map" size={19} /></span>
+                <div>
+                  <h3 class="font-extrabold">導航關鍵字</h3>
+                  <p class="mt-2 text-sm leading-7 text-[#687267]">直接搜尋「石門大草坪」，或使用座標 24.83509, 121.24165。名稱相近的「石門水庫」會被導航帶往另一個入口。</p>
+                </div>
+              </div>
+              <div class="card flex gap-4 p-5">
+                <span class="grid size-10 shrink-0 place-items-center rounded-full bg-[#e8dcd3] text-[#995d47]"><Icon name="car" size={19} /></span>
+                <div>
+                  <h3 class="font-extrabold">自駕與停車</h3>
+                  <p class="mt-2 text-sm leading-7 text-[#687267]">優先使用正式停車格與現場開放區域，不占用辦公出入口、消防通道或宿舍私人空間。花季與活動日請預留找車位時間。</p>
+                </div>
+              </div>
+            </div>
+
+            <p class="fine-print mt-4">地址參考：{site.address}<br />座標：{site.latitude}, {site.longitude}</p>
+          </div>
+
+          <VisitDiagram />
+        </div>
+      </div>
+    </section>
+
+    <section id="parking" class="section-space bg-[#e8eadf]">
+      <div class="container-shell">
+        <SectionHeading
+          eyebrow="PARKING"
+          title="自駕停車：先停對，再慢慢玩"
+          description="大草坪是開放草地，停車資源隨現場與活動調整。以下為通用原則，實際可停區域與是否收費請以當日現場告示為準。"
+        />
+
+        <div class="mt-14 grid gap-5 md:grid-cols-2">
+          <article class="rounded-[2rem] border border-black/8 bg-white/62 p-7 sm:p-9">
+            <span class="grid size-12 place-items-center rounded-full bg-[#dfe8d7] text-[#526247]"><Icon name="car" size={22} /></span>
+            <h3 class="mt-6 text-2xl font-extrabold tracking-[-.035em]">停在哪裡</h3>
+            <p class="mt-4 leading-8 text-[#687267]">
+              優先使用正式停車格與現場開放區域。辦公出入口、消防通道與宿舍私人空間不應占用，既是規範，也避免影響當地居民與公務運作。抵達時先觀察現場指示牌再決定停車位置。
+            </p>
+          </article>
+          <article class="rounded-[2rem] border border-black/8 bg-white/62 p-7 sm:p-9">
+            <span class="grid size-12 place-items-center rounded-full bg-[#e8dcd3] text-[#995d47]"><Icon name="clock" size={22} /></span>
+            <h3 class="mt-6 text-2xl font-extrabold tracking-[-.035em]">何時最擠</h3>
+            <p class="mt-4 leading-8 text-[#687267]">
+              流蘇花季（約 3 月底至 4 月初）與連假是明顯高峰，上午 10 點後入園車流最密。提早出發、錯開尖峰，或改搭大眾運輸，都能少繞很多路。
+            </p>
+          </article>
+          <article class="rounded-[2rem] border border-black/8 bg-white/62 p-7 sm:p-9">
+            <span class="grid size-12 place-items-center rounded-full bg-[#dfe8d7] text-[#526247]"><Icon name="info" size={22} /></span>
+            <h3 class="mt-6 text-2xl font-extrabold tracking-[-.035em]">收費與管制</h3>
+            <p class="mt-4 leading-8 text-[#687267]">
+              現場是否設有收費停車格、收費標準與可停放區域，會隨管理單位規劃與活動調整。本站不標示固定費率；請以現場告示、收費看板與管理單位最新公告為準。
+            </p>
+          </article>
+          <article class="rounded-[2rem] border border-black/8 bg-white/62 p-7 sm:p-9">
+            <span class="grid size-12 place-items-center rounded-full bg-[#e8dcd3] text-[#995d47]"><Icon name="wind" size={22} /></span>
+            <h3 class="mt-6 text-2xl font-extrabold tracking-[-.035em]">塞車與替代</h3>
+            <p class="mt-4 leading-8 text-[#687267]">
+              尖峰時段周邊道路與路口容易回堵。事先查好替代動線、保持耐心，並把「找車位」算進行程時間裡，體驗會順很多。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-shell">
+        <div class="grid gap-14 lg:grid-cols-[.82fr_1.18fr] lg:items-center">
+          <div>
+            <SectionHeading
+              eyebrow="PUBLIC TRANSIT"
+              title="大眾運輸怎麼到？"
+              description="部分公車及假日觀光路線會停靠石門大草坪或北水局附近，但班次可能調整，出發當天應再查即時動態。"
+            />
+            <div class="card mt-9 flex gap-4 p-5">
+              <span class="grid size-10 shrink-0 place-items-center rounded-full bg-[#dfe6d7] text-[#526247]"><Icon name="info" size={19} /></span>
+              <p class="text-sm leading-7 text-[#687267]">
+                下車後步行距離與路線請以現場指標為準；若與舊遊記不符，以當日實際站牌與動態資訊為主。也可結合 Google 地圖的即時大眾運輸導航一起規劃。
+              </p>
+            </div>
+            <a class="btn-primary mt-8" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
+              <Icon name="map" size={19} />
+              用地圖規劃路線
+            </a>
+          </div>
+
+          <figure class="overflow-hidden rounded-[2rem] border border-black/8 bg-white/60 shadow-[0_20px_60px_rgba(46,61,42,.14)]">
+            <iframe
+              src={site.mapsEmbedSrc}
+              title="石門大草坪 Google 地圖嵌入"
+              width="100%"
+              height="450"
+              class="block aspect-[4/3] h-auto w-full border-0 sm:aspect-[16/9]"
+              style="border:0;"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
+            <figcaption class="flex flex-wrap items-center justify-between gap-2 border-t border-black/8 px-5 py-4 text-sm text-[#667064] sm:px-6">
+              <span>石門大草坪位置與周邊道路（{site.address}）</span>
+              <a class="font-extrabold text-[#465239] underline decoration-[#465239]/25 underline-offset-4" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
+                在 Google 地圖中開啟
+              </a>
+            </figcaption>
+          </figure>
+        </div>
+
+        <p class="fine-print mt-5 px-1">
+          如需官方最新公告與區域旅遊資訊，請前往
+          <a class="font-extrabold text-[#465239] underline decoration-[#465239]/30 underline-offset-4" href={site.govtTourismPortalUrl} target="_blank" rel="noopener noreferrer nofollow">
+            {site.govtTourismName}官方網站
+          </a>
+          。
+        </p>
+      </div>
+    </section>
+
+    <section id="faq" class="section-space bg-[#293329] text-white">
+      <div class="container-shell">
+        <SectionHeading
+          eyebrow="PARKING FAQ"
+          title="停車與交通，<br />最常被問的幾件事"
+          description="以下整理自駕、大眾運輸與導航情境。收費、開放區域與臨時管制仍以現場公告為準。"
+        />
+
+        <div class="mt-14 max-w-4xl divide-y divide-white/12 border-y border-white/12">
+          {parkingFaqs.map((item, index) => (
+            <details class="group py-6">
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-6 font-extrabold sm:text-lg">
+                <span class="flex gap-4">
+                  <span class="font-mono text-xs text-white/35">0{index + 1}</span>
+                  <span>{item.q}</span>
+                </span>
+                <span class="relative mt-1 block size-5 shrink-0 text-white/60">
+                  <span class="absolute left-0 top-1/2 h-px w-full bg-current"></span>
+                  <span class="absolute left-1/2 top-0 h-full w-px bg-current transition group-open:rotate-90 group-open:opacity-0"></span>
+                </span>
+              </summary>
+              <p class="ml-10 mt-5 max-w-3xl leading-8 text-white/62">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-space">
+      <div class="container-shell">
+        <div class="grid gap-5 md:grid-cols-2">
+          <a href="/#landmarks" class="card group p-7 sm:p-9">
+            <p class="font-mono text-xs font-bold tracking-[.12em] text-[#9a6552]">NEXT</p>
+            <h3 class="mt-4 text-2xl font-extrabold tracking-[-.035em]">周邊順遊景點</h3>
+            <p class="mt-3 text-sm leading-7 text-[#687267]">把大草坪當作龍潭行程裡的放鬆節點，週邊還能接十一份觀光文化園區與石門水庫。</p>
+            <span class="mt-5 inline-flex items-center gap-2 font-extrabold text-[#465239]">查看順遊路線 <Icon name="arrow" size={18} /></span>
+          </a>
+          <a href="/#season" class="card group p-7 sm:p-9">
+            <p class="font-mono text-xs font-bold tracking-[.12em] text-[#9a6552]">NEXT</p>
+            <h3 class="mt-4 text-2xl font-extrabold tracking-[-.035em]">流蘇花季與季節</h3>
+            <p class="mt-3 text-sm leading-7 text-[#687267]">不同季節的草地時光、花季預測與天氣判斷，都整理在主站的季節攻略裡。</p>
+            <span class="mt-5 inline-flex items-center gap-2 font-extrabold text-[#465239]">看季節攻略 <Icon name="arrow" size={18} /></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="relative overflow-hidden bg-[#a45f47] py-20 text-white sm:py-28">
+      <div class="absolute -right-28 -top-28 size-96 rounded-full border border-white/10"></div>
+      <div class="absolute -right-12 -top-12 size-64 rounded-full border border-white/10"></div>
+      <div class="container-shell relative z-10 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div>
+          <p class="eyebrow !text-white/70">READY TO GO</p>
+          <h2 class="mt-6 max-w-[16ch] text-4xl font-extrabold leading-[1.05] tracking-[-.05em] sm:text-6xl">導航對了，<br />剩下的交給草地</h2>
+          <p class="mt-6 max-w-2xl leading-8 text-white/72">先確認終點在龍潭十一份、佳安路一帶，錯開花季與連假尖峰，停車會順很多。</p>
+        </div>
+        <a class="btn-primary !bg-white !text-[#7e4938] hover:!bg-[#f7eee8]" href={site.mapUrl} target="_blank" rel="noopener noreferrer">
+          <Icon name="map" size={19} />
+          開啟導航
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

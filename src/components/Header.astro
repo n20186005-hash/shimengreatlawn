@@ -10,11 +10,15 @@ import { site } from '../data/site';
       <span>{site.name}</span>
     </a>
 
-    <nav class="hidden items-center gap-7 text-sm font-semibold text-white/82 md:flex" aria-label="主要導覽">
+    <nav class="hidden items-center gap-6 text-sm font-semibold text-white/82 md:flex" aria-label="主要導覽">
       <a class="transition hover:text-white" href="#visit">行前資訊</a>
+      <a class="transition hover:text-white" href="#weather">天氣</a>
       <a class="transition hover:text-white" href="#season">流蘇花季</a>
       <a class="transition hover:text-white" href="#story">十一份故事</a>
-      <a class="transition hover:text-white" href="#transport">交通停車</a>
+      <a class="transition hover:text-white" href="/transport">交通停車</a>
+      <a class="transition hover:text-white" href="#services">訪客設施</a>
+      <a class="transition hover:text-white" href="#reviews">Google 評價</a>
+      <a class="transition hover:text-white" href="#plans">遊覽方案</a>
       <a class="transition hover:text-white" href="#faq">常見問題</a>
     </nav>
 
@@ -31,9 +35,13 @@ import { site } from '../data/site';
   <div id="mobile-menu" class="hidden border-t border-white/10 bg-[#203024] md:hidden">
     <nav class="container-shell grid gap-1 py-4 text-base font-bold" aria-label="行動版導覽">
       <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#visit">行前資訊</a>
+      <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#weather">天氣</a>
       <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#season">流蘇花季</a>
       <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#story">十一份故事</a>
-      <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#transport">交通停車</a>
+      <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="/transport">交通停車</a>
+      <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#services">訪客設施</a>
+      <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#reviews">Google 評價</a>
+      <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#plans">遊覽方案</a>
       <a class="rounded-xl px-3 py-3 hover:bg-white/8" href="#faq">常見問題</a>
       <a class="mt-2 rounded-xl bg-white px-3 py-3 text-center text-[#32412f]" href={site.mapUrl} target="_blank" rel="noopener noreferrer">開啟導航</a>
     </nav>

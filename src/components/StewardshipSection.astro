@@ -1,0 +1,80 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const science = [
+  {
+    icon: 'leaf',
+    title: '草皮生態',
+    text: '開闊草皮是低維護的綠地，提供散熱、休憩與活動空間；過度踩踏與車輛碾壓，會讓草皮逐漸裸土化。',
+  },
+  {
+    icon: 'droplet',
+    title: '水資源背景',
+    text: '大草坪位在北區水資源分署十一份辦公區前，與石門水庫的供水與管理脈絡相連；理解這層背景，更能體會它為何是「辦公與生活」中的一片留白。',
+  },
+  {
+    icon: 'book',
+    title: '老宿舍資產',
+    text: '十一份宿舍區見證水庫工程與地方生活史，部分空間活化為文化園區；它是活的文化資產，不是布景。',
+  },
+] as const;
+
+const duties = [
+  '無痕離開：垃圾全數帶走，包括草屑與寵物排泄物。',
+  '全程牽繩：毛孩請牽繩，並避開人群與辦公出入口。',
+  '保護草皮：不駕車進入草坪，也不釘固定樁破壞草皮。',
+  '尊重私人空間：宿舍與庭院不進入、不攀爬。',
+  '用火與噪音：不使用明火，也不喧嘩影響他人。',
+] as const;
+---
+
+<section id="stewardship" class="section-space bg-[#33412f] text-white">
+  <div class="container-shell">
+    <SectionHeading
+      eyebrow="STEWARDSHIP"
+      title="科普與訪客責任"
+      description="大草坪能一直舒服，靠的是每個人留一點空間。先認識它，再守護它。"
+    />
+
+    <div class="mt-14 grid gap-5 lg:grid-cols-2">
+      <div class="rounded-[2rem] border border-white/12 bg-white/6 p-7 sm:p-9">
+        <p class="font-mono text-xs font-bold tracking-[.15em] text-[#b9c7a8]">認識這片地</p>
+        <div class="mt-7 grid gap-6">
+          {
+            science.map((item) => (
+              <div class="flex gap-4">
+                <span class="grid size-10 shrink-0 place-items-center rounded-full bg-white/10 text-[#cdd8c2]">
+                  <Icon name={item.icon} size={20} />
+                </span>
+                <div>
+                  <h3 class="font-extrabold">{item.title}</h3>
+                  <p class="mt-2 leading-7 text-white/64">{item.text}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="rounded-[2rem] bg-[#a45f47] p-7 sm:p-9">
+        <p class="font-mono text-xs font-bold tracking-[.15em] text-white/60">訪客責任清單</p>
+        <ul class="mt-7 grid gap-4">
+          {
+            duties.map((duty) => (
+              <li class="flex items-start gap-3 leading-7 text-white/82">
+                <span class="mt-1 shrink-0 text-[#f0d9bf]">
+                  <Icon name="check" size={18} />
+                </span>
+                <span>{duty}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-8 rounded-2xl bg-white/12 px-5 py-4 text-lg font-extrabold tracking-[-.02em]">
+          帶得走垃圾，留得下草地。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

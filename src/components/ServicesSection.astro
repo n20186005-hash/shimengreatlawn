@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const services = [
+  {
+    icon: 'toilet',
+    title: '公共廁所',
+    text: '辦公區周邊設有公共廁所，草坪外圍與文化園區內也有可使用的空間。',
+    tip: '建議先確認開放時段；維護或活動期間可能暫時調整。',
+  },
+  {
+    icon: 'car',
+    title: '停車空間',
+    text: '以現場開放停車格與路邊指引為主，沒有大型收費停車場。',
+    tip: '花季與活動日較滿，請勿占用辦公出入口、消防通道與私人車道。',
+  },
+  {
+    icon: 'utensils',
+    title: '餐飲選擇',
+    text: '周邊以活魚餐飲、地方小吃與簡易茶飲為主，步行可達十一份園區。',
+    tip: '開車短程選擇更多；用餐尖峰建議預留排隊時間。',
+  },
+  {
+    icon: 'bed',
+    title: '過夜住宿',
+    text: '龍潭與石門水庫沿線有旅宿與民宿，大草坪本身不提供過夜。',
+    tip: '安排一日以上行程時，可就近選擇並提前預訂。',
+  },
+  {
+    icon: 'cart',
+    title: '採買補給',
+    text: '飲水、防曬、零食與雨具等，可在附近便利商店與超市補齊。',
+    tip: '草坪上商店稀少，出發前先備齊更安心。',
+  },
+  {
+    icon: 'fuel',
+    title: '車輛補給',
+    text: '加油站與電動車充電站分布在龍潭與主要幹道沿線。',
+    tip: '出發前把油量與電量補滿，避免山區臨時找樁。',
+  },
+] as const;
+---
+
+<section id="services" class="section-space">
+  <div class="container-shell">
+    <SectionHeading
+      eyebrow="VISITOR SERVICES"
+      title="訪客服務與周邊設施"
+      description="以下依「類型」整理日常所需的設施與補給，不個別推薦特定商家；實際營業與價格仍以現場公告為準。"
+    />
+
+    <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service) => (
+          <article class="card flex flex-col p-6 sm:p-7">
+            <span class="grid size-12 place-items-center rounded-full bg-[#e3e8d7] text-[#526247]">
+              <Icon name={service.icon} size={22} />
+            </span>
+            <h3 class="mt-6 text-xl font-extrabold tracking-[-.03em]">{service.title}</h3>
+            <p class="mt-3 flex-1 leading-7 text-[#697368]">{service.text}</p>
+            <p class="mt-5 rounded-xl bg-[#f1f3ea] px-4 py-3 text-sm leading-6 text-[#5b665a]">
+              <span class="font-extrabold text-[#33412f]">實用建議 ｜</span>
+              {service.tip}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="fine-print mt-6 px-1">
+      石門大草坪以開放草地為主，商業設施集中在十一份與龍潭市區；把補給與用餐排在抵達前或離開後，最能維持草地上的輕鬆節奏。
+    </p>
+  </div>
+</section>

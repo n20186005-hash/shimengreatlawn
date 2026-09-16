@@ -1,10 +1,39 @@
 {
-  "name": "石門大草坪",
+  "name": "石門大草坪｜桃園龍潭免費大草坪景點指南",
   "short_name": "石門大草坪",
-  "description": "桃園龍潭石門大草坪行前指南",
+  "description": "桃園龍潭石門大草坪行前指南：交通、停車、流蘇花季、親子野餐與十一份周邊順遊。",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#f6f3ea",
   "theme_color": "#536144",
-  "lang": "zh-Hant-TW"
+  "lang": "zh-Hant-TW",
+  "dir": "ltr",
+  "categories": ["travel", "tourism", "navigation"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
 }

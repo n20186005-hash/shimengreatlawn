@@ -8,10 +8,13 @@
 - 真實照片本地化，不使用遠端圖片熱連結
 - 響應式圖片與 WebP 壓縮
 - Google Analytics 4：`G-HXM22WWPKP`
-- `TouristAttraction`、`WebSite`、`FAQPage` JSON-LD
+- `TouristAttraction`、`WebSite`、`BreadcrumbList`、`FAQPage` JSON-LD（評分與評價不寫入結構化資料，僅於頁面展示）
 - Open Graph、Twitter Card、canonical、robots.txt、sitemap.xml
 - 行動版固定導航按鈕與無障礙導覽
+- Google 地圖評分與評價區塊（4.5 / 5,219，同步自 Google 地圖使用者評價，同步時間 2026 年 9 月）
+- 資料來源區塊（Sources），集中 Google 地圖、官方旅遊局與水利署等引用
 - 關於本站、照片授權、隱私權與 404 頁面
+- PWA 支援：web manifest、Service Worker 離線快取、各尺寸圖示
 - Cloudflare Workers / Wrangler 設定
 
 ## 技術版本
@@ -105,12 +108,31 @@ src/pages/index.astro
 src/data/site.ts
 ```
 
-最後核對日期目前為 `2026-07-29`。更新交通、停車或花季資訊後，請同步修改：
+最後核對日期目前為 `2026-09-16`。更新交通、停車或花季資訊後，請同步修改：
 
 - 首頁可見日期或文字
-- `src/data/site.ts` 的 `updated`
+- `src/data/site.ts` 的 `updated` / `updatedText`
 - `public/sitemap.xml` 的 `lastmod`
 - 關於頁與隱私權頁日期
+
+## PWA 與圖示
+
+網站支援安裝為獨立 App，圖示由下列腳本從 `public/images/og-shimen-great-lawn.jpg` 產生：
+
+```bash
+pnpm pwa:icons
+```
+
+產出位於：
+
+```text
+public/icons/icon-192.png
+public/icons/icon-512.png
+public/icons/icon-512-maskable.png
+public/icons/apple-touch-icon.png
+```
+
+Service Worker 位於 `public/sw.js`，對導覽請求採 network-first、靜態資產採 cache-first，並在 `BaseLayout.astro` 中註冊。
 
 ## 圖片
 

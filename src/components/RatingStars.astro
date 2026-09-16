@@ -1,0 +1,41 @@
+---
+interface Props {
+  /** 評分數值，例如 4.5 */
+  rating: number;
+  /** 滿分，預設 5 */
+  max?: number;
+  size?: number;
+  class?: string;
+  label?: string;
+}
+
+const { rating, max = 5, size = 20, class: className = '', label } = Astro.props;
+const percent = Math.max(0, Math.min(100, (rating / max) * 100));
+const starPath =
+  'M12 2.6l2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.45 6.19 20.5 7.3 14.03 2.6 9.45l6.5-.95z';
+---
+
+<span
+  class:list={['relative inline-flex align-middle', className]}
+  role="img"
+  aria-label={label ?? `${rating} 分（滿分 ${max} 分）`}
+>
+  <span class="inline-flex gap-[.18em] text-current opacity-20" aria-hidden="true">
+    {Array.from({ length: max }).map(() => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" class="shrink-0">
+        <path d={starPath} />
+      </svg>
+    ))}
+  </span>
+  <span
+    class="absolute inset-y-0 left-0 inline-flex gap-[.18em] overflow-hidden text-current"
+    style={`width:${percent}%`}
+    aria-hidden="true"
+  >
+    {Array.from({ length: max }).map(() => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" class="shrink-0">
+        <path d={starPath} />
+      </svg>
+    ))}
+  </span>
+</span>

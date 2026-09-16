@@ -1,0 +1,499 @@
+---
+import Icon from './Icon.astro';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section id="weather" class="section-space bg-[#eef1e7]">
+  <div class="container-shell">
+    <SectionHeading
+      eyebrow="TODAY'S OUTLOOK"
+      title="出門前，先看一眼天氣"
+      description="即時天氣與未來七日預報，並依當下天況自動整理成穿搭、行程與隨身物品的具體建議。"
+    />
+
+    <div class="mt-12 grid gap-5 lg:grid-cols-[0.95fr_1.4fr]">
+      <!-- 基礎天氣卡 -->
+      <div class="rounded-[2rem] bg-[#33412f] p-7 text-white sm:p-9">
+        <div class="flex items-center justify-between">
+          <p class="font-mono text-xs font-bold tracking-[.15em] text-white/55">即時天氣</p>
+          <span id="wx-icon" class="text-[#cdd8c2]"><Icon name="cloud" size={26} /></span>
+        </div>
+
+        <div class="mt-4 flex items-end gap-2">
+          <span id="wx-temp" class="text-6xl font-extrabold tracking-[-.05em]">--</span>
+          <span class="mb-2 text-lg text-white/60">°C</span>
+        </div>
+        <p id="wx-cond" class="mt-2 text-lg font-bold">讀取中…</p>
+        <p id="wx-range" class="mt-1 text-sm text-white/55">今日 --° – --°</p>
+
+        <div class="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-white/12 pt-5 text-sm sm:grid-cols-3">
+          <div>
+            <p class="text-white/50">體感</p>
+            <p id="wx-feel" class="mt-1 font-extrabold">--°</p>
+          </div>
+          <div>
+            <p class="text-white/50">濕度</p>
+            <p id="wx-hum" class="mt-1 font-extrabold">--</p>
+          </div>
+          <div>
+            <p class="text-white/50">降雨機率</p>
+            <p id="wx-pop" class="mt-1 font-extrabold">--%</p>
+          </div>
+          <div>
+            <p class="text-white/50">風力</p>
+            <p id="wx-wind" class="mt-1 font-extrabold">--</p>
+          </div>
+          <div>
+            <p class="text-white/50">今日紫外線</p>
+            <p id="wx-uv" class="mt-1 font-extrabold">--</p>
+          </div>
+          <div>
+            <p class="text-white/50">今日高低溫</p>
+            <p id="wx-hilo" class="mt-1 font-extrabold">--°</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 智能建議 -->
+      <div class="grid gap-4">
+        <!-- 風險提醒：有才顯示 -->
+        <div id="wx-risk" class="hidden rounded-[1.6rem] bg-[#a45f47] p-5 sm:p-6">
+          <p class="flex items-center gap-2 font-extrabold text-white">
+            <span class="shrink-0"><Icon name="alert" size={20} /></span>
+            風險提醒
+          </p>
+          <ul id="wx-risk-list" class="mt-3 grid gap-2 text-sm leading-7 text-white/88"></ul>
+        </div>
+
+        <!-- 無預警時的中性提示 -->
+        <div id="wx-safe" class="hidden rounded-[1.6rem] border border-black/8 bg-white/60 px-5 py-4">
+          <p class="flex items-center gap-2 text-sm font-bold text-[#5b665a]">
+            <span class="shrink-0 text-[#526247]"><Icon name="check" size={18} /></span>
+            目前依預報資料判斷，沒有需要特別留意的氣象風險。
+          </p>
+        </div>
+
+        <div class="rounded-[2rem] border border-black/8 bg-white/70 p-6 sm:p-7">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <p class="font-mono text-xs font-bold tracking-[.15em] text-[#8b6d5f]">SMART TIPS</p>
+            <p id="wx-umbrella" class="rounded-full bg-[#e3e8d7] px-3 py-1.5 text-sm font-extrabold text-[#526247]">
+              讀取中…
+            </p>
+          </div>
+
+          <div class="mt-5 flex gap-4 rounded-2xl bg-[#f4f6ee] p-4">
+            <span class="mt-0.5 shrink-0 text-[#526247]"><Icon name="shirt" size={20} /></span>
+            <div>
+              <p class="font-extrabold text-[#33412f]">出行穿搭</p>
+              <p id="wx-wear" class="mt-1.5 leading-7 text-[#5b665a]">讀取中…</p>
+            </div>
+          </div>
+
+          <div class="mt-4 flex gap-4 rounded-2xl bg-[#f4f6ee] p-4">
+            <span class="mt-0.5 shrink-0 text-[#526247]"><Icon name="compass" size={20} /></span>
+            <div class="min-w-0">
+              <p class="font-extrabold text-[#33412f]">遊玩安排</p>
+              <ul id="wx-play" class="mt-1.5 grid gap-1.5 text-sm leading-7 text-[#5b665a]"></ul>
+            </div>
+          </div>
+
+          <div class="mt-4 flex gap-4 rounded-2xl bg-[#f4f6ee] p-4">
+            <span class="mt-0.5 shrink-0 text-[#526247]"><Icon name="backpack" size={20} /></span>
+            <div class="min-w-0">
+              <p class="font-extrabold text-[#33412f]">隨身物品</p>
+              <div id="wx-items" class="mt-2 flex flex-wrap gap-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 七日預報 -->
+    <div class="mt-5 rounded-[2rem] border border-black/8 bg-white/70 p-6 sm:p-7">
+      <p class="font-mono text-xs font-bold tracking-[.15em] text-[#8b6d5f]">未來 7 日</p>
+      <div id="wx-forecast" class="mt-4 grid grid-cols-4 gap-2.5 sm:grid-cols-7">
+        <p class="col-span-full text-sm text-[#8b9486]">讀取中…</p>
+      </div>
+    </div>
+
+    <p id="wx-updated" class="fine-print mt-5 px-1">
+      建議依即時預報資料自動產生，每 15 分鐘更新；降雨機率是「機會」不是保證，颱風、豪雨等官方警特報請以中央氣象署公告為準。
+      <a
+        class="font-bold text-[#8b6d5f] underline decoration-dotted underline-offset-4"
+        href="https://www.cwa.gov.tw"
+        target="_blank"
+        rel="noopener noreferrer">前往中央氣象署</a
+      >
+    </p>
+  </div>
+</section>
+
+<script>
+  type Kind = 'sun' | 'cloud' | 'rain' | 'snow' | 'storm' | 'fog';
+  type Cat = 'clear' | 'partly' | 'cloudy' | 'fog' | 'drizzle' | 'rain' | 'heavy' | 'snow' | 'thunder';
+
+  interface DayInfo {
+    date: string;
+    kind: Kind;
+    tmax: number;
+    tmin: number;
+    pop: number;
+  }
+
+  interface Snapshot {
+    temp: number;
+    apparent: number;
+    humidity: number;
+    windMs: number;
+    windLevel: number;
+    uv: number;
+    text: string;
+    kind: Kind;
+    cat: Cat;
+    precip: number;
+    tmax: number;
+    tmin: number;
+    pop: number;
+    precipSum: number;
+  }
+
+  interface Advice {
+    umbrella: boolean;
+    umbrellaText: string;
+    wear: string;
+    play: string[];
+    items: string[];
+    risks: string[];
+  }
+
+  const $ = (id: string) => document.getElementById(id);
+  const CACHE_KEY = 'sgl-wx-v2';
+  const TTL_MS = 15 * 60 * 1000;
+
+  const WMO: Record<number, { text: string; kind: Kind; cat: Cat }> = {
+    0: { text: '晴朗', kind: 'sun', cat: 'clear' },
+    1: { text: '晴時多雲', kind: 'sun', cat: 'clear' },
+    2: { text: '局部多雲', kind: 'cloud', cat: 'partly' },
+    3: { text: '陰天', kind: 'cloud', cat: 'cloudy' },
+    45: { text: '有霧', kind: 'fog', cat: 'fog' },
+    48: { text: '有霧', kind: 'fog', cat: 'fog' },
+    51: { text: '毛毛雨', kind: 'rain', cat: 'drizzle' },
+    53: { text: '毛毛雨', kind: 'rain', cat: 'drizzle' },
+    55: { text: '毛毛雨', kind: 'rain', cat: 'drizzle' },
+    56: { text: '凍毛毛雨', kind: 'rain', cat: 'drizzle' },
+    57: { text: '凍毛毛雨', kind: 'rain', cat: 'drizzle' },
+    61: { text: '小雨', kind: 'rain', cat: 'rain' },
+    63: { text: '下雨', kind: 'rain', cat: 'rain' },
+    65: { text: '大雨', kind: 'rain', cat: 'heavy' },
+    66: { text: '凍雨', kind: 'rain', cat: 'heavy' },
+    67: { text: '凍雨', kind: 'rain', cat: 'heavy' },
+    71: { text: '小雪', kind: 'snow', cat: 'snow' },
+    73: { text: '下雪', kind: 'snow', cat: 'snow' },
+    75: { text: '大雪', kind: 'snow', cat: 'snow' },
+    77: { text: '雪粒', kind: 'snow', cat: 'snow' },
+    80: { text: '陣雨', kind: 'rain', cat: 'rain' },
+    81: { text: '陣雨', kind: 'rain', cat: 'rain' },
+    82: { text: '強陣雨', kind: 'rain', cat: 'heavy' },
+    85: { text: '陣雪', kind: 'snow', cat: 'snow' },
+    86: { text: '強陣雪', kind: 'snow', cat: 'snow' },
+    95: { text: '雷陣雨', kind: 'storm', cat: 'thunder' },
+    96: { text: '雷雨伴雹', kind: 'storm', cat: 'thunder' },
+    99: { text: '雷雨伴雹', kind: 'storm', cat: 'thunder' },
+  };
+  const describe = (code: number) => WMO[code] ?? { text: '多雲', kind: 'cloud' as Kind, cat: 'cloudy' as Cat };
+
+  const WEEKDAYS = ['週日', '週一', '週二', '週三', '週四', '週五', '週六'];
+  const weekday = (date: string) => WEEKDAYS[new Date(date + 'T00:00:00').getDay()];
+
+  const ICONS: Record<Kind, string> = {
+    sun: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>',
+    cloud: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 0 1 .5-7.97A5.5 5.5 0 0 1 18 10.5a3.5 3.5 0 0 1-.5 7.5Z"/></svg>',
+    rain: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 15a4 4 0 0 1 .5-7.97A5.5 5.5 0 0 1 18 7.5a3.5 3.5 0 0 1-.5 7.5Z"/><path d="M8 18l-1 2m5-2-1 2m5-2-1 2"/></svg>',
+    snow: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 15a4 4 0 0 1 .5-7.97A5.5 5.5 0 0 1 18 7.5a3.5 3.5 0 0 1-.5 7.5Z"/><path d="M12 17v3m-2-1 2 2 2-2"/></svg>',
+    storm: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14a4 4 0 0 1 .5-7.97A5.5 5.5 0 0 1 18 6.5a3.5 3.5 0 0 1-.5 7.5Z"/><path d="m12 13-2 4h3l-2 4"/></svg>',
+    fog: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 14a4 4 0 0 1 .5-7.97A5.5 5.5 0 0 1 18 6.5a3.5 3.5 0 0 1-.5 7.5Z"/><path d="M4 18h16M6 21h12"/></svg>',
+  };
+
+  /** 蒲福風級：把每秒公尺換算成遊客看得懂的「幾級風」 */
+  function beaufort(ms: number): number {
+    const thresholds = [0.3, 1.6, 3.4, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7];
+    let level = 0;
+    while (level < thresholds.length && ms >= thresholds[level]) level += 1;
+    return level;
+  }
+
+  const windText = (level: number) =>
+    level <= 2 ? '微風' : level <= 4 ? '和緩' : level === 5 ? '偏大' : level === 6 ? '強風' : '強勁';
+  const uvText = (v: number) => (v >= 8 ? '很強' : v >= 5 ? '偏強' : v >= 3 ? '中等' : '微弱');
+  const humText = (h: number) => (h >= 75 ? '偏潮濕' : h >= 60 ? '還算舒服' : '偏乾爽');
+
+  /** 依天況組成建議：不滿足條件的項目直接不產生，頁面就不會顯示 */
+  function buildAdvice(s: Snapshot): Advice {
+    const diff = s.tmax - s.tmin;
+    const thunder = s.cat === 'thunder';
+    const heavy = s.cat === 'heavy' || s.precipSum >= 10;
+    const rainingNow = s.precip > 0.05 || s.cat === 'drizzle' || s.cat === 'rain' || heavy;
+    const likelyRain = s.pop >= 60;
+    const foggy = s.cat === 'fog';
+    const windy = s.windLevel >= 5;
+    const gale = s.windLevel >= 7;
+
+    // 帶傘結論（機率不是保證，用字避免「一定下雨」）
+    const umbrella = thunder || heavy || rainingNow || likelyRain;
+    let umbrellaText: string;
+    if (thunder || heavy) umbrellaText = '會下雨，務必帶雨具';
+    else if (rainingNow) umbrellaText = '正在下雨，出門請帶傘';
+    else if (likelyRain) umbrellaText = `降雨機率 ${s.pop}%，建議帶傘`;
+    else umbrellaText = '降雨機率低，輕裝出門';
+
+    // 出行穿搭
+    const wear: string[] = [];
+    if (thunder || heavy || (rainingNow && windy)) wear.push('風雨較大，建議穿防水外套');
+    else if (rainingNow) wear.push('有降雨，建議加一件防潑水外套');
+    if (s.tmax >= 32) wear.push('氣溫偏高，穿輕薄透氣的衣物');
+    else if (s.tmax <= 10) wear.push('氣溫偏低，做好保暖，厚外套與圍巾都派得上用場');
+    else wear.push('氣溫舒適，一般衣物即可');
+    if (diff > 8) wear.push(`晝夜溫差約 ${Math.round(diff)} 度，多帶一件薄外套方便穿脫`);
+    if (windy) wear.push('風大，避免寬鬆長裙與容易被吹走的帽子');
+
+    // 遊玩安排（含草地、水岸、步道等在地場景）
+    const play: string[] = [];
+    if (thunder) play.push('有雷雨，別待在空曠草地中央，也不要在樹下避雨');
+    if (heavy) play.push('雨勢明顯，草地會泥濘，建議改到十一份觀光文化園區等室內空間');
+    else if (rainingNow) play.push('有小雨，草地與步道濕滑，放風箏、球類等活動體驗較差');
+    else if (likelyRain) play.push('降雨機率偏高，把戶外行程排在上午，並預留室內備案');
+    if (s.tmax >= 32) play.push('氣溫偏高，避開正午，把重點行程放在早晨或傍晚');
+    if (s.uv >= 5 && !rainingNow) play.push('紫外線偏強，長時間停留記得找樹蔭');
+    if (thunder || heavy || gale) play.push('石門水庫水岸與緩丘步道請勿前往，留意陣風與濕滑');
+    if (foggy) play.push('能見度較差，不適合遠眺水庫與山景，開車請放慢');
+    if (gale) play.push('風力過強，放風箏與遮陽傘都不適合');
+    else if (windy) play.push('風力偏大，放風箏正好，但請固定好野餐墊與遮陽傘');
+    else if (s.windLevel >= 2 && !rainingNow && !thunder) play.push('風力溫和，很適合放風箏與在草地上活動');
+    if (!rainingNow && !thunder && !foggy && s.tmax < 32) {
+      if (s.cat === 'clear') play.push('天氣晴朗，很適合野餐、散步，也適合拍夕陽');
+      else if (s.cat === 'cloudy' || s.cat === 'partly') play.push('光線柔和，適合拍照，也適合長時間在戶外走走');
+    }
+
+    // 隨身物品
+    const items: string[] = [];
+    if (windy && (rainingNow || heavy)) items.push('雨衣（風大不建議長柄傘）');
+    else if (rainingNow || heavy || likelyRain) items.push('摺疊傘');
+    if (heavy) items.push('替換衣物');
+    if (s.uv >= 5) items.push('防曬乳');
+    if (s.uv >= 5) items.push('遮陽帽 / 墨鏡');
+    else if (s.cat === 'clear') items.push('防曬乳');
+    if (s.tmax >= 32) items.push('充足飲用水');
+    if (s.tmax <= 10 || diff > 8) items.push('保暖 / 薄外套');
+    if (windy) items.push('防風衣物');
+    if (foggy) items.push('口罩');
+    if (s.tmax >= 22) items.push('防蚊液');
+    if (rainingNow || heavy) items.push('防滑好走的鞋');
+    else items.push('野餐墊');
+    items.push('垃圾袋（無痕離開）');
+
+    // 風險提醒（沒有就完全不顯示）
+    const risks: string[] = [];
+    if (thunder) risks.push('有雷雨，請遠離樹下、水邊與高處，空曠草地勿撐傘');
+    if (heavy) risks.push('雨勢較強，避開低窪與邊坡，留意草地泥濘');
+    if (gale) risks.push('風力達 7 級以上，遠離廣告牌、樹木與臨時設施');
+    if (foggy) risks.push('能見度差，開車與步行都要放慢');
+    if (s.tmax >= 36) risks.push('高溫炎熱，避免正午戶外活動並注意防中暑');
+
+    return {
+      umbrella,
+      umbrellaText,
+      wear: wear.join('；'),
+      play: play.slice(0, 4),
+      items: items.slice(0, 7),
+      risks,
+    };
+  }
+
+  function renderBase(s: Snapshot) {
+    const set = (id: string, value: string) => {
+      const el = $(id);
+      if (el) el.textContent = value;
+    };
+    if ($('wx-icon')) $('wx-icon')!.innerHTML = ICONS[s.kind] || ICONS.cloud;
+    set('wx-temp', String(Math.round(s.temp)));
+    set('wx-cond', s.text);
+    set('wx-range', `今日 ${Math.round(s.tmin)}° – ${Math.round(s.tmax)}°`);
+    set('wx-feel', `${Math.round(s.apparent)}°`);
+    set('wx-hum', `${Math.round(s.humidity)}% · ${humText(s.humidity)}`);
+    set('wx-pop', `${Math.round(s.pop)}%`);
+    set('wx-wind', `${s.windLevel} 級 · ${windText(s.windLevel)}`);
+    set('wx-uv', `${Math.round(s.uv)} · ${uvText(s.uv)}`);
+    set('wx-hilo', `${Math.round(s.tmin)}° / ${Math.round(s.tmax)}°`);
+  }
+
+  function renderAdvice(a: Advice) {
+    const umbrella = $('wx-umbrella');
+    if (umbrella) umbrella.textContent = a.umbrellaText;
+
+    const wear = $('wx-wear');
+    if (wear) wear.textContent = a.wear;
+
+    const play = $('wx-play');
+    if (play) {
+      play.innerHTML = a.play
+        .map((line) => `<li class="flex gap-2"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-[#526247]"></span><span>${line}</span></li>`)
+        .join('');
+    }
+
+    const items = $('wx-items');
+    if (items) {
+      items.innerHTML = a.items
+        .map(
+          (item) =>
+            `<span class="rounded-full border border-[#dfe4d6] bg-white px-3 py-1.5 text-sm font-semibold text-[#526247]">${item}</span>`,
+        )
+        .join('');
+    }
+
+    const risk = $('wx-risk');
+    const riskList = $('wx-risk-list');
+    const safe = $('wx-safe');
+    if (risk && riskList && safe) {
+      if (a.risks.length > 0) {
+        riskList.innerHTML = a.risks
+          .map((line) => `<li class="flex gap-2"><span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-white/70"></span><span>${line}</span></li>`)
+          .join('');
+        risk.classList.remove('hidden');
+        safe.classList.add('hidden');
+      } else {
+        riskList.innerHTML = '';
+        risk.classList.add('hidden');
+        safe.classList.remove('hidden');
+      }
+    }
+  }
+
+  function renderForecast(days: DayInfo[]) {
+    const forecast = $('wx-forecast');
+    if (!forecast) return;
+    forecast.innerHTML = days
+      .map((d, i) => {
+        const label = i === 0 ? '今天' : weekday(d.date);
+        const pop = d.pop >= 20 ? `<p class="text-[11px] text-[#8b6d5f]">降雨 ${Math.round(d.pop)}%</p>` : '';
+        return `
+          <div class="flex flex-col items-center gap-1 rounded-xl bg-white/60 px-1.5 py-3 text-center">
+            <p class="text-[11px] font-bold text-[#7a8177]">${label}</p>
+            <span class="text-[#526247]">${ICONS[d.kind] || ICONS.cloud}</span>
+            <p class="text-sm font-extrabold text-[#33412f]">${Math.round(d.tmax)}°</p>
+            <p class="text-xs text-[#9aa095]">${Math.round(d.tmin)}°</p>
+            ${pop}
+          </div>`;
+      })
+      .join('');
+  }
+
+  function showError() {
+    const set = (id: string, value: string) => {
+      const el = $(id);
+      if (el) el.textContent = value;
+    };
+    set('wx-cond', '天氣資訊暫時無法載入');
+    set('wx-umbrella', '請另行確認預報');
+    set('wx-wear', '出發前請確認即時預報，並隨身準備雨具備用，以應對午後雷陣雨。');
+    const play = $('wx-play');
+    if (play) play.innerHTML = '';
+    const items = $('wx-items');
+    if (items) items.innerHTML = '';
+    const forecast = $('wx-forecast');
+    if (forecast) {
+      forecast.innerHTML = '<p class="col-span-full text-sm text-[#8b9486]">預報暫時無法取得，請稍後再試。</p>';
+    }
+  }
+
+  function readCache(): any | null {
+    try {
+      const raw = sessionStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw) as { ts: number; data: any };
+      if (Date.now() - parsed.ts < TTL_MS) return parsed.data;
+    } catch {
+      /* 忽略快取讀取錯誤 */
+    }
+    return null;
+  }
+
+  function writeCache(data: any) {
+    try {
+      sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data }));
+    } catch {
+      /* 忽略快取寫入錯誤 */
+    }
+  }
+
+  function normalize(raw: any): { snapshot: Snapshot; days: DayInfo[] } {
+    const c = raw.current;
+    const d = raw.daily;
+    const now = describe(c.weather_code);
+
+    const times: string[] = d?.time ?? [];
+    const days: DayInfo[] = times.map((date: string, i: number) => {
+      const day = describe(d.weather_code[i]);
+      return {
+        date,
+        kind: day.kind,
+        tmax: d.temperature_2m_max[i],
+        tmin: d.temperature_2m_min[i],
+        pop: d.precipitation_probability_max?.[i] ?? 0,
+      };
+    });
+
+    const windMs = Math.max(c.wind_speed_10m ?? 0, d?.wind_speed_10m_max?.[0] ?? 0);
+    const snapshot: Snapshot = {
+      temp: c.temperature_2m,
+      apparent: c.apparent_temperature,
+      humidity: c.relative_humidity_2m,
+      windMs,
+      windLevel: beaufort(windMs),
+      uv: d?.uv_index_max?.[0] ?? c.uv_index ?? 0,
+      text: now.text,
+      kind: now.kind,
+      cat: now.cat,
+      precip: c.precipitation ?? 0,
+      tmax: d.temperature_2m_max[0],
+      tmin: d.temperature_2m_min[0],
+      pop: d.precipitation_probability_max?.[0] ?? 0,
+      precipSum: d?.precipitation_sum?.[0] ?? 0,
+    };
+
+    return { snapshot, days };
+  }
+
+  async function loadWeather() {
+    const cached = readCache();
+
+    if (cached) {
+      const { snapshot, days } = normalize(cached);
+      renderBase(snapshot);
+      renderAdvice(buildAdvice(snapshot));
+      renderForecast(days);
+      return;
+    }
+
+    const url =
+      'https://api.open-meteo.com/v1/forecast?latitude=24.83509&longitude=121.24165' +
+      '&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,uv_index' +
+      '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,uv_index_max' +
+      '&forecast_days=7&timezone=Asia%2FTaipei&wind_speed_unit=ms';
+
+    try {
+      const res = await fetch(url, { headers: { accept: 'application/json' } });
+      if (!res.ok) throw new Error('bad status');
+      const raw: any = await res.json();
+
+      writeCache(raw);
+      const { snapshot, days } = normalize(raw);
+      renderBase(snapshot);
+      renderAdvice(buildAdvice(snapshot));
+      renderForecast(days);
+    } catch {
+      showError();
+    }
+  }
+
+  loadWeather();
+</script>

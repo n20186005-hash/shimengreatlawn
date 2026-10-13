@@ -53,35 +53,35 @@ export const site = {
    */
   googleRating: 4.5,
   googleRatingValue: '4.5',
-  googleReviewCount: 5219,
-  googleReviewCountText: '5,219',
-  /** 同步時間：2026 年 9 月 */
-  ratingSyncedAt: '2026 年 9 月',
-  ratingSyncedDate: '2026-09',
+  googleReviewCount: 5245,
+  googleReviewCountText: '5,245',
+  /** 同步時間：2026 年 10 月 */
+  ratingSyncedAt: '2026 年 10 月',
+  ratingSyncedDate: '2026-10',
 
   /**
    * SEO Title：品牌詞優先，控制在約 28 個中文字內，避免 SERP 截斷。
-   * 用字以繁體（zh-Hant-TW）為準，並納入查詢資料中實際有量的意圖詞：交通、停車、花季、野餐。
+   * 用字以繁體（zh-Hant-TW）為準，並納入查詢資料中實際有量的意圖詞：桃園龍潭、停車、交通、流蘇花、野餐。
    */
-  title: '石門大草坪｜桃園龍潭免費大草坪：交通停車、花季與野餐指南',
+  title: '石門大草坪｜桃園龍潭停車、交通、流蘇花與野餐攻略',
   /** Meta Description：控制在約 60 個中文字內，前段放最強的信任與定位訊號 */
   description:
-    'Google 地圖 4.5 分。石門大草坪在桃園龍潭十一份，免費開放；整理即時天氣、交通停車、流蘇花季、野餐與毛孩注意事項。',
+    '石門大草坪位於桃園龍潭十一份，是適合親子野餐、放風箏與春季賞流蘇花的開闊草地。整理停車方式、交通導航、免費入園資訊、現場照片及周邊順遊景點，出發前先看這篇指南。',
   locale: 'zh_TW',
   lang: 'zh-Hant-TW',
   gaId: 'G-HXM22WWPKP',
 
-  updated: '2026-09-16',
-  updatedText: '2026 年 9 月 16 日',
+  updated: '2026-10-13',
+  updatedText: '2026 年 10 月 13 日',
 } as const;
 
 /** 評分與評價來源說明：評價區塊使用 */
 export const reviewSourceNote =
-  '同步自 Google 地圖使用者評價，同步時間 2026 年 9 月；版權歸原作者與 Google 地圖所有';
+  '同步自 Google 地圖使用者評價，同步時間 2026 年 10 月；版權歸原作者與 Google 地圖所有';
 
 /** 評分與評價來源說明：評分小字（單行）使用 */
 export const ratingSourceLine =
-  '評分與評價數同步自谷歌地圖（Google Maps）使用者評價 · 2026 年 9 月';
+  '評分與評價數同步自谷歌地圖（Google Maps）使用者評價 · 2026 年 10 月';
 
 /**
  * 資料來源清單
@@ -91,13 +91,13 @@ export const sources = [
   {
     label: 'Google 地圖：石門大草坪（評分、評價、地址與座標）',
     url: 'https://maps.app.goo.gl/xdpW2KryCeBkd1B97',
-    note: '評價 · 同步時間 2026 年 9 月',
-    extra: '同步自 Google 地圖使用者評價，同步時間 2026 年 9 月；版權歸原作者與 Google 地圖所有',
+    note: '評價 · 同步時間 2026 年 10 月',
+    extra: '同步自 Google 地圖使用者評價，同步時間 2026 年 10 月；版權歸原作者與 Google 地圖所有',
   },
   {
     label: 'Google 地圖嵌入地圖（位置與周邊道路）',
     url: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.841600735194!2d121.24165!3d24.835089999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34683d9796cee9e7%3A0xf7b638d45539169c!2z55-z6Zeo5aSn6I2J5Z2q!5e0!3m2!1szh-CN!2stw!4v1785322457765!5m2!1szh-CN!2stw',
-    note: '地圖 · 同步時間 2026 年 9 月',
+    note: '地圖 · 同步時間 2026 年 10 月',
   },
   {
     label: '桃園觀光導覽網：佳安里（石門十一份）',

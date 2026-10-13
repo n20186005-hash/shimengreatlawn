@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://shimengreatlawn.com/</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-10-13</lastmod>
     <image:image>
       <image:loc>https://shimengreatlawn.com/images/hero-1920.webp</image:loc>
       <image:title>石門大草坪主視覺：開闊草地、樹木與藍天</image:title>
@@ -37,14 +37,14 @@
   </url>
   <url>
     <loc>https://shimengreatlawn.com/transport</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://shimengreatlawn.com/about</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
   <url>
     <loc>https://shimengreatlawn.com/privacy</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-10-13</lastmod>
   </url>
 </urlset>

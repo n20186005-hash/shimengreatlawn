@@ -152,7 +152,7 @@ const attractionSchema = {
       '@id': `${site.url}/#website`,
       url: site.url,
       name: site.name,
-      alternateName: [site.shortName, `${site.city}${site.name}`, site.nameEn],
+      alternateName: [site.shortName, `${site.city}${site.name}`, site.nameEn, 'Shihmen Grand Lawn'],
       inLanguage: 'zh-Hant-TW',
       description: site.description,
       publisher: { '@id': `${site.url}/#attraction` },
@@ -168,6 +168,7 @@ const attractionSchema = {
         '北水局大草坪',
         '石門十一份大草坪',
         site.nameEn,
+        'Shihmen Grand Lawn',
       ],
       description: `Comprehensive visitor guide to ${site.nameEn} (${site.name}) in ${site.city}, ${site.state}, ${site.country}. 位於${site.state}${site.city}十一份辦公區前的開闊公共草地，適合野餐、放風箏、親子活動與春季賞流蘇花。`,
       url: site.url,
@@ -253,7 +254,7 @@ const attractionSchema = {
           <p class="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-extrabold tracking-[.15em] text-white/88 backdrop-blur-md">
             桃園・龍潭・十一份
           </p>
-          <h1 class="display-title mt-7 max-w-[13ch]">石門大草坪<br /><span class="text-white/62">龍潭區的一片風與草地</span></h1>
+          <h1 class="display-title mt-7 max-w-[13ch]">石門大草坪<br /><span class="text-white/62">桃園龍潭野餐、停車與流蘇花景點</span></h1>
           <p class="mt-7 max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
             石門大草坪是一片免費、開闊的日常風景。帶一張野餐墊、一只風箏，或只是慢慢走過老宿舍與樹影，就很足夠。
           </p>
@@ -322,6 +323,33 @@ const attractionSchema = {
             <p>戶外草坪一般可供民眾休閒使用；廁所、停車與局部區域可能因活動、維護或辦公需求調整，請以現場告示為準。</p>
           </div>
         </div>
+
+        <div class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <a href="/transport" class="flex items-center gap-3 rounded-2xl border border-white/14 bg-white/8 px-5 py-4 font-extrabold transition hover:bg-white/14">
+            <Icon name="car" size={20} class="text-[#dfe8d7]" />
+            停車與交通攻略
+          </a>
+          <a href="#weather" class="flex items-center gap-3 rounded-2xl border border-white/14 bg-white/8 px-5 py-4 font-extrabold transition hover:bg-white/14">
+            <Icon name="sun" size={20} class="text-[#dfe8d7]" />
+            即時天氣與 7 日預報
+          </a>
+          <a href="#season" class="flex items-center gap-3 rounded-2xl border border-white/14 bg-white/8 px-5 py-4 font-extrabold transition hover:bg-white/14">
+            <Icon name="info" size={20} class="text-[#dfe8d7]" />
+            流蘇花季與季節
+          </a>
+          <a href="#landmarks" class="flex items-center gap-3 rounded-2xl border border-white/14 bg-white/8 px-5 py-4 font-extrabold transition hover:bg-white/14">
+            <Icon name="map" size={20} class="text-[#dfe8d7]" />
+            周邊順遊景點
+          </a>
+          <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 rounded-2xl border border-white/14 bg-white/8 px-5 py-4 font-extrabold transition hover:bg-white/14">
+            <Icon name="compass" size={20} class="text-[#dfe8d7]" />
+            Google 地圖導航
+          </a>
+          <a href="#faq" class="flex items-center gap-3 rounded-2xl border border-white/14 bg-white/8 px-5 py-4 font-extrabold transition hover:bg-white/14">
+            <Icon name="arrow" size={20} class="text-[#dfe8d7]" />
+            常見問題 FAQ
+          </a>
+        </div>
       </div>
     </section>
 
@@ -374,7 +402,7 @@ const attractionSchema = {
             </div>
             <div class="border-b border-black/8 pb-4">
               <dt class="text-xs font-extrabold tracking-[.15em] text-[#7a8177]">常用俗稱</dt>
-              <dd class="mt-2 leading-7">石管局大草坪、北水局大草坪、石門十一份大草坪</dd>
+              <dd class="mt-2 leading-7">石管局大草坪、北水局大草坪、石門十一份大草坪、Shihmen Grand Lawn（英文名）</dd>
             </div>
             <div class="border-b border-black/8 pb-4">
               <dt class="text-xs font-extrabold tracking-[.15em] text-[#7a8177]">地址</dt>
@@ -422,11 +450,14 @@ const attractionSchema = {
         </div>
 
         <div class="mt-14 grid gap-5 lg:grid-cols-[1.35fr_.65fr]">
-          <figure class="photo-frame aspect-[4/3] lg:aspect-auto lg:min-h-[34rem]">
-            <picture>
-              <source type="image/webp" srcset="/images/lawn-640.webp 640w, /images/lawn-960.webp 960w, /images/lawn-1280.webp 1280w" sizes="(min-width: 1024px) 64vw, 100vw" />
-              <img src="/images/lawn-960.webp" alt="石門大草坪實景，中央是寬闊草地，外圍有高大樹木" width="1280" height="960" loading="lazy" />
-            </picture>
+          <figure>
+            <div class="photo-frame aspect-[4/3] lg:aspect-auto lg:min-h-[34rem]">
+              <picture>
+                <source type="image/webp" srcset="/images/lawn-640.webp 640w, /images/lawn-960.webp 960w, /images/lawn-1280.webp 1280w" sizes="(min-width: 1024px) 64vw, 100vw" />
+                <img src="/images/lawn-960.webp" alt="石門大草坪全景：中央開闊草地，外圍有高大樹木遮蔭" width="1280" height="960" loading="lazy" />
+              </picture>
+            </div>
+            <figcaption class="fine-print mt-3 px-1">草坪全景：中央是適合野餐與放風箏的開闊草地，外圍樹木提供遮蔭。</figcaption>
           </figure>
           <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
             <div class="rounded-[1.8rem] bg-[#a45f47] p-7 text-white sm:p-9">
@@ -458,11 +489,14 @@ const attractionSchema = {
             </div>
           </div>
 
-          <figure class="photo-frame aspect-[3/2]">
-            <picture>
-              <source type="image/webp" srcset="/images/flower-640.webp 640w, /images/flower-960.webp 960w, /images/flower-1279.webp 1279w" sizes="(min-width: 1024px) 56vw, 100vw" />
-              <img src="/images/flower-960.webp" alt="流蘇花細長潔白的花瓣近照" width="1279" height="853" loading="lazy" />
-            </picture>
+          <figure>
+            <div class="photo-frame aspect-[3/2]">
+              <picture>
+                <source type="image/webp" srcset="/images/flower-640.webp 640w, /images/flower-960.webp 960w, /images/flower-1279.webp 1279w" sizes="(min-width: 1024px) 56vw, 100vw" />
+                <img src="/images/flower-960.webp" alt="石門大草坪周邊的流蘇花：細長潔白花瓣近照" width="1279" height="853" loading="lazy" />
+              </picture>
+            </div>
+            <figcaption class="fine-print mt-3 px-1">流蘇花季：細長潔白的花瓣像落在枝頭的雪，是石門大草坪春季最具代表性的景觀。</figcaption>
           </figure>
         </div>
 
@@ -496,11 +530,14 @@ const attractionSchema = {
         </div>
 
         <div class="mt-16 grid gap-5 lg:grid-cols-12">
-          <figure class="photo-frame aspect-[4/3] lg:col-span-7 lg:row-span-2">
-            <picture>
-              <source type="image/webp" srcset="/images/residence-640.webp 640w, /images/residence-960.webp 960w, /images/residence-1280.webp 1280w" sizes="(min-width: 1024px) 58vw, 100vw" />
-              <img src="/images/residence-960.webp" alt="十一份石管局宿舍區的日式房屋實景" width="1280" height="960" loading="lazy" />
-            </picture>
+          <figure class="lg:col-span-7 lg:row-span-2">
+            <div class="photo-frame aspect-[4/3]">
+              <picture>
+                <source type="image/webp" srcset="/images/residence-640.webp 640w, /images/residence-960.webp 960w, /images/residence-1280.webp 1280w" sizes="(min-width: 1024px) 58vw, 100vw" />
+                <img src="/images/residence-960.webp" alt="十一份石管局宿舍區保留下來的日式低矮房屋實景" width="1280" height="960" loading="lazy" />
+              </picture>
+            </div>
+            <figcaption class="fine-print mt-3 px-1">十一份老宿舍：石門水庫興建時期留下的日式低矮房舍，是草坪周邊最具時間感的地方。</figcaption>
           </figure>
 
           <div class="rounded-[1.8rem] border border-white/12 bg-white/7 p-7 lg:col-span-5 sm:p-9">
@@ -517,12 +554,14 @@ const attractionSchema = {
         </div>
 
         <div class="mt-5 grid gap-5 md:grid-cols-2">
-          <figure class="photo-frame aspect-[4/3]">
-            <picture>
-              <source type="image/webp" srcset="/images/temple-640.webp 640w, /images/temple-960.webp 960w, /images/temple-1280.webp 1280w" sizes="(min-width: 768px) 50vw, 100vw" />
-              <img src="/images/temple-960.webp" alt="十一份集福宮與旁邊的大榕樹實景" width="1280" height="960" loading="lazy" />
-            </picture>
-            <figcaption class="sr-only">十一份集福宮與大榕樹</figcaption>
+          <figure>
+            <div class="photo-frame aspect-[4/3]">
+              <picture>
+                <source type="image/webp" srcset="/images/temple-640.webp 640w, /images/temple-960.webp 960w, /images/temple-1280.webp 1280w" sizes="(min-width: 768px) 50vw, 100vw" />
+                <img src="/images/temple-960.webp" alt="十一份集福宮與旁邊的大榕樹實景" width="1280" height="960" loading="lazy" />
+              </picture>
+            </div>
+            <figcaption class="fine-print mt-3 px-1">周邊入口地標：草坪旁的集福宮土地公廟與老榕樹，是十一份生活記憶的一部分。</figcaption>
           </figure>
           <div class="flex flex-col justify-center rounded-[1.8rem] border border-white/12 bg-white/5 p-7 sm:p-10">
             <p class="eyebrow !text-[#c8d4b9]">LOCAL LANDMARK</p>
@@ -718,11 +757,14 @@ const attractionSchema = {
               </article>
             ))}
 
-            <figure class="photo-frame mt-2 aspect-[4/3]">
-              <picture>
-                <source type="image/webp" srcset="/images/trail-640.webp 640w, /images/trail-960.webp 960w, /images/trail-1024.webp 1024w" sizes="(min-width: 1024px) 60vw, 100vw" />
-                <img src="/images/trail-960.webp" alt="十一份挑擔古道石板路與木欄杆實景" width="1024" height="768" loading="lazy" />
-              </picture>
+            <figure class="mt-2">
+              <div class="photo-frame aspect-[4/3]">
+                <picture>
+                  <source type="image/webp" srcset="/images/trail-640.webp 640w, /images/trail-960.webp 960w, /images/trail-1024.webp 1024w" sizes="(min-width: 1024px) 60vw, 100vw" />
+                  <img src="/images/trail-960.webp" alt="十一份挑擔古道石板路與木欄杆實景" width="1024" height="768" loading="lazy" />
+                </picture>
+              </div>
+              <figcaption class="fine-print mt-3 px-2">周邊入口散步：十一份挑擔古道的石板路與木欄杆，是從草坪延伸出去的輕量步道。</figcaption>
             </figure>
             <p class="fine-print px-2">想把行程拉長，可再認識十一份周邊古道與石門水庫沿線；出發前仍應確認步道路況與自身體力。</p>
           </div>

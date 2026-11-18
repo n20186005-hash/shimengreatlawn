@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import ManagementSection from '../../components/ManagementSection.astro';
 import { site } from '../../data/site';
 import { guides } from '../../data/guides';
 
@@ -47,6 +48,12 @@ const jsonLd = {
         <div class="mt-8 grid gap-5 md:grid-cols-3">{guide.highlights.map((item, i) => <article class="rounded-3xl bg-white p-7 shadow-sm"><span class="text-sm font-bold text-[#64805e]">0{i + 1}</span><p class="mt-4 leading-8 text-[#445044]">{item}</p></article>)}</div>
       </div>
     </section>
+    <ManagementSection
+      name="石門大草坪與十一份辦公園區"
+      manager="經濟部水利署北區水資源分署"
+      description="石門大草坪位於北區水資源分署十一份辦公區前，是石門水庫建設歷史留下的重要公共開放空間。北區水資源分署負責辦公園區與草坪場地使用管理，民眾一般休閒運動不必申請；正式活動須依管理規定辦理。周邊老宿舍、景觀樹木與十一份聚落見證水利建設與龍潭地方生活的連結。今日這裡以草地休憩、親子活動與季節賞花吸引旅客，出發前仍須留意園區最新管理公告。"
+      sourceUrl="https://www.wra.gov.tw/wranb/cp.aspx?n=36819"
+    />
     <section class="section-space bg-white"><div class="container-shell max-w-4xl">
       <h2 class="text-3xl font-extrabold text-[#293b2d]">關於十一份的歷史與景觀</h2><p class="mt-6 text-lg leading-9 text-[#465448]">{guide.history}</p>
       <h2 class="mt-14 text-3xl font-extrabold text-[#293b2d]">基本資訊</h2>

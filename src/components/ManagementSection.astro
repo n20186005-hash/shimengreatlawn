@@ -1,0 +1,25 @@
+---
+interface Props {
+  name: string;
+  manager: string;
+  description: string;
+  sourceUrl: string;
+}
+const { name, manager, description, sourceUrl } = Astro.props;
+---
+<section class="section-space bg-[#e8eadf]" aria-labelledby="management-heading">
+  <div class="container-shell max-w-5xl">
+    <p class="text-sm font-extrabold tracking-[.16em] text-[#668060]">ABOUT THE PLACE</p>
+    <h2 id="management-heading" class="mt-3 text-3xl font-extrabold tracking-tight text-[#293b2d]">關於{name}</h2>
+    <div class="mt-7 grid gap-8 rounded-[2rem] bg-white/75 p-7 shadow-sm sm:p-10 lg:grid-cols-[.32fr_.68fr]">
+      <div class="border-l-4 border-[#788e6c] pl-5">
+        <p class="text-sm font-bold text-[#657763]">管理與營運主體</p>
+        <p class="mt-3 text-xl font-extrabold leading-8 text-[#293b2d]">{manager}</p>
+      </div>
+      <div>
+        <p class="text-base leading-9 text-[#4b5b4c]">{description}</p>
+        <a href={sourceUrl} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex font-bold text-[#3c5b3d] underline underline-offset-4">查看管理單位與官方資料 ↗</a>
+      </div>
+    </div>
+  </div>
+</section>

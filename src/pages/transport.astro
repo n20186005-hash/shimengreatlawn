@@ -19,19 +19,19 @@ const breadcrumbs = [
 const parkingFaqs = [
   {
     q: '石門大草坪停車要收費嗎？',
-    a: '大草坪位於北區水資源分署十一份辦公區前，現場是否設有收費停車格、收費標準與可停放區域，會隨管理單位規劃與活動調整。出發前與抵達時，請以現場告示與管理單位指引為準，本站不標示固定費率。',
+    a: '水利署公布的十一份辦公廳前停車場規定：非上班日 08:00–18:00 開放民眾使用，禁止過夜；上班日主要供員工及洽公、會議車輛停放。官方要點未列固定停車費率，請以現場公告為準。',
   },
   {
     q: '自駕可以停在哪裡？',
-    a: '優先使用正式停車格與現場開放區域，不占用辦公出入口、消防通道或宿舍私人空間。花季、連假與活動日車流量明顯增加，建議預留找車位的時間，並留意是否有臨時管制。',
+    a: '可先查詢「十一份辦公廳前停車場」及北區水資源分署官方規定。停車場採電動門柵管理，非上班日白天開放；上班日一般遊客不應預期可以入場。不得占用辦公出入口、消防通道或宿舍私人空間。',
   },
   {
     q: '假日或花季會不會很難停車？',
-    a: '會。流蘇花季（約 3 月底至 4 月初）與連假是明顯高峰，周邊停車與道路都更擁擠。錯開上午 10 點後的入園高峰、提早出發，或改搭大眾運輸，都能顯著降低找車位的難度。',
+    a: '花季與連假可能增加停車需求，無法保證空位。請預留彈性、留意 18:00 停車場開放時間截止，或核對大龍門線公車服務日及班次。',
   },
   {
     q: '可以搭大眾運輸到石門大草坪嗎？',
-    a: '部分公車及假日觀光路線會停靠石門大草坪或北水局附近，但班次可能調整。出發當天應再查即時動態與站牌資訊，避免只看舊遊記；下車後步行距離請以現場路線為準。',
+    a: '桃園觀光「大龍門線」公布的路線含北水局（石門大草坪）站，實際行駛日期、班次及票價應在出發當天向官方路線資料與公車動態系統核對。',
   },
   {
     q: '導航為什麼會被帶到石門水庫壩頂？',
@@ -172,7 +172,7 @@ const jsonLd = {
         <SectionHeading
           eyebrow="PARKING"
           title="自駕停車：先停對，再慢慢玩"
-          description="大草坪是開放草地，停車資源隨現場與活動調整。以下為通用原則，實際可停區域與是否收費請以當日現場告示為準。"
+          description="十一份辦公廳前停車場有明確的官方開放時段及使用對象；請先核對日期，再依電動門柵與現場告示停放。"
         />
 
         <div class="mt-14 grid gap-5 md:grid-cols-2">
@@ -187,17 +187,17 @@ const jsonLd = {
             <span class="grid size-12 place-items-center rounded-full bg-[#e8dcd3] text-[#995d47]"><Icon name="clock" size={22} /></span>
             <h3 class="mt-6 text-2xl font-extrabold tracking-[-.035em]">何時最擠</h3>
             <p class="mt-4 leading-8 text-[#687267]">
-              流蘇花季（約 3 月底至 4 月初）與連假是明顯高峰，上午 10 點後入園車流最密。提早出發、錯開尖峰，或改搭大眾運輸，都能少繞很多路。
+              花季與連假可能增加停車需求，無法保證空位。請留意辦公廳前停車場非上班日 08:00–18:00 的開放時段，預留找車位時間。
             </p>
           </article>
           <article class="rounded-[2rem] border border-black/8 bg-white/62 p-7 sm:p-9">
             <span class="grid size-12 place-items-center rounded-full bg-[#dfe8d7] text-[#526247]"><Icon name="info" size={22} /></span>
             <h3 class="mt-6 text-2xl font-extrabold tracking-[-.035em]">收費與管制</h3>
             <p class="mt-4 leading-8 text-[#687267]">
-              現場是否設有收費停車格、收費標準與可停放區域，會隨管理單位規劃與活動調整。本站不標示固定費率；請以現場告示、收費看板與管理單位最新公告為準。
+              <strong>十一份辦公廳前停車場：</strong>非上班日 08:00–18:00 開放民眾小車停放，禁止過夜；上班日供分署員工及洽公、會議相關車輛使用。停車場設電動門柵，官方規定未列固定收費標準。<a class="underline" href="https://www.wra.gov.tw/wranb/cp.aspx?n=36849" target="_blank" rel="noopener noreferrer">查看水利署官方停車規定 ↗</a>
             </p>
             <div class="mt-5 rounded-2xl bg-[#f0d9bf]/14 p-4 text-sm leading-7 text-[#6b5b48]">
-              <strong class="font-extrabold">別和石門水庫園區混淆：</strong>石門水庫園區（壩頂／收費入口）由北區水資源分署管理，採「入園先購票、以車計費」，售票約 08:00–17:00、農曆春節除夕休園。那是另一個入口，距大草坪約 10 分鐘車程（以實際路況為準）。
+              <strong class="font-extrabold">別和石門水庫園區混淆：</strong>水庫園區的入園與收費由另一份官方規定管理，與十一份辦公廳前停車場不同。<a class="underline" href="https://www.wra.gov.tw/wranb/cp.aspx?n=42763" target="_blank" rel="noopener noreferrer">查看石門水庫園區入園規定 ↗</a>
             </div>
           </article>
           <article class="rounded-[2rem] border border-black/8 bg-white/62 p-7 sm:p-9">
@@ -235,12 +235,12 @@ const jsonLd = {
             <SectionHeading
               eyebrow="PUBLIC TRANSIT"
               title="大眾運輸怎麼到？"
-              description="部分公車及假日觀光路線會停靠石門大草坪或北水局附近，但班次可能調整，出發當天應再查即時動態。"
+              description="桃園觀光大龍門線列有「北水局（石門大草坪）」站，出發前請核對服務日期、班次與返程。"
             />
             <div class="card mt-9 flex gap-4 p-5">
               <span class="grid size-10 shrink-0 place-items-center rounded-full bg-[#dfe6d7] text-[#526247]"><Icon name="info" size={19} /></span>
               <p class="text-sm leading-7 text-[#687267]">
-                行經石門水庫／北水局一帶的桃園客運路線，下車後仍需再接駁或步行至十一份、佳安路。實際路線、班次與站牌，請查
+                桃園觀光<a class="font-extrabold underline" href="https://travel.tycg.gov.tw/zh-tw/traffic/shihmen/" target="_blank" rel="noopener noreferrer">大龍門線官方路線 ↗</a>列有「北水局（石門大草坪）」站。實際班次與站牌位置請查
                 <a class="font-extrabold text-[#465239] underline decoration-[#465239]/30 underline-offset-4" href="https://ebus.tycg.gov.tw/ebus/travel-planner" target="_blank" rel="noopener noreferrer nofollow">桃園市公車動態系統</a>
                 或桃園客運時刻表，並以當日現場為準。
               </p>

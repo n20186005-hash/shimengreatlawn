@@ -834,7 +834,7 @@ const attractionSchema = {
             <div class="p-6"><p class="text-xs font-extrabold tracking-widest text-[#718469]">{guide.eyebrow}</p><h3 class="mt-3 text-xl font-extrabold text-[#293b2d]">{guide.short}</h3><p class="mt-3 line-clamp-3 text-sm leading-7 text-[#5c695b]">{guide.intro}</p><span class="mt-5 inline-block font-bold text-[#476347]">閱讀專題 →</span></div>
           </a>)}
         </div>
-        <h3 class="mt-14 text-2xl font-extrabold text-[#293b2d]">周邊景點</h3>
+        <h3 id="nearby" class="mt-14 scroll-mt-24 text-2xl font-extrabold text-[#293b2d]">周邊景點</h3>
         <div class="mt-6 grid gap-5 md:grid-cols-2">
           {nearby.map((place) => <a href={`/attractions/${place.slug}`} class="flex min-h-40 overflow-hidden rounded-3xl bg-white shadow-sm transition hover:shadow-lg">
             {place.image ? <img src={place.image} alt={place.imageAlt} loading="lazy" width="320" height="240" class="w-2/5 object-cover" /> : <div class="grid w-2/5 place-items-center bg-[#dfe8da] p-5 text-center text-sm font-extrabold text-[#476347]">水庫景點介紹</div>}

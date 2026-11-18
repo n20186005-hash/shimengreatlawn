@@ -53,11 +53,11 @@ export const site = {
    */
   googleRating: 4.5,
   googleRatingValue: '4.5',
-  googleReviewCount: 5245,
-  googleReviewCountText: '5,245',
-  /** 同步時間：2026 年 10 月 */
-  ratingSyncedAt: '2026 年 10 月',
-  ratingSyncedDate: '2026-10',
+  googleReviewCount: 5266,
+  googleReviewCountText: '5,266',
+  /** 同步時間：2026 年 11 月 18 日（使用者提供最新評價數） */
+  ratingSyncedAt: '2026 年 11 月 18 日',
+  ratingSyncedDate: '2026-11-18',
 
   /**
    * SEO Title：品牌詞優先，控制在約 28 個中文字內，避免 SERP 截斷。
@@ -71,17 +71,17 @@ export const site = {
   lang: 'zh-Hant-TW',
   gaId: 'G-HXM22WWPKP',
 
-  updated: '2026-10-13',
-  updatedText: '2026 年 10 月 13 日',
+  updated: '2026-11-18',
+  updatedText: '2026 年 11 月 18 日',
 } as const;
 
 /** 評分與評價來源說明：評價區塊使用 */
 export const reviewSourceNote =
-  '同步自 Google 地圖使用者評價，同步時間 2026 年 10 月；版權歸原作者與 Google 地圖所有';
+  'Google 地圖使用者評價數據，更新時間 2026 年 11 月 18 日；版權歸原作者與 Google 地圖所有';
 
 /** 評分與評價來源說明：評分小字（單行）使用 */
 export const ratingSourceLine =
-  '評分與評價數同步自谷歌地圖（Google Maps）使用者評價 · 2026 年 10 月';
+  '評分與評價數參考 Google 地圖（Google Maps）使用者評價 · 2026 年 11 月 18 日';
 
 /**
  * 資料來源清單
@@ -91,13 +91,13 @@ export const sources = [
   {
     label: 'Google 地圖：石門大草坪（評分、評價、地址與座標）',
     url: 'https://maps.app.goo.gl/xdpW2KryCeBkd1B97',
-    note: '評價 · 同步時間 2026 年 10 月',
-    extra: '同步自 Google 地圖使用者評價，同步時間 2026 年 10 月；版權歸原作者與 Google 地圖所有',
+    note: '評價 · 更新時間 2026 年 11 月 18 日',
+    extra: 'Google 地圖評價數更新為 5,266，更新時間 2026 年 11 月 18 日；版權歸原作者與 Google 地圖所有',
   },
   {
     label: 'Google 地圖嵌入地圖（位置與周邊道路）',
     url: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.841600735194!2d121.24165!3d24.835089999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34683d9796cee9e7%3A0xf7b638d45539169c!2z55-z6Zeo5aSn6I2J5Z2q!5e0!3m2!1szh-CN!2stw!4v1785322457765!5m2!1szh-CN!2stw',
-    note: '地圖 · 同步時間 2026 年 10 月',
+    note: '地圖 · 資料來源持續提供',
   },
   {
     label: '桃園觀光導覽網：佳安里（石門十一份）',

@@ -7,13 +7,14 @@ import SectionHeading from '../components/SectionHeading.astro';
 import VisitDiagram from '../components/VisitDiagram.astro';
 import RatingStars from '../components/RatingStars.astro';
 import ReviewsSection from '../components/ReviewsSection.astro';
-import SourcesSection from '../components/SourcesSection.astro';
 import WeatherSection from '../components/WeatherSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
 import SeasonStrategy from '../components/SeasonStrategy.astro';
 import PlansSection from '../components/PlansSection.astro';
 import StewardshipSection from '../components/StewardshipSection.astro';
 import { site, ratingSourceLine } from '../data/site';
+import { guides } from '../data/guides';
+import { nearby } from '../data/nearby';
 
 /** 歸屬層級：景點 → 城市 → 省市 → 國家 */
 const geoHierarchy = [site.name, site.city, site.state, site.country];
@@ -804,7 +805,6 @@ const attractionSchema = {
       </div>
     </section>
 
-    <SourcesSection />
 
     <section class="relative overflow-hidden bg-[#a45f47] py-20 text-white sm:py-28">
       <div class="absolute -right-28 -top-28 size-96 rounded-full border border-white/10"></div>
@@ -819,6 +819,27 @@ const attractionSchema = {
           <Icon name="map" size={19} />
           開啟導航
         </a>
+      </div>
+    </section>
+    <section id="guides" class="section-space bg-[#f4f3e9]">
+      <div class="container-shell">
+        <p class="text-sm font-extrabold tracking-[.14em] text-[#657c60]">EXPLORE SHIMEN</p>
+        <h2 class="mt-3 text-3xl font-extrabold text-[#293b2d]">石門大草坪深度遊覽指南</h2>
+        <p class="mt-4 max-w-3xl leading-8 text-[#566354]">從春季流蘇花到親子野餐，再走進十一份的水利建設街區。每篇整理不同的出遊需求與官方查核來源。</p>
+        <div class="mt-8 grid gap-6 md:grid-cols-3">
+          {guides.map((guide) => <a href={`/guides/${guide.slug}`} class="group overflow-hidden rounded-3xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <img src={guide.image} alt={guide.imageAlt} loading="lazy" width="640" height="420" class="h-48 w-full object-cover" />
+            <div class="p-6"><p class="text-xs font-extrabold tracking-widest text-[#718469]">{guide.eyebrow}</p><h3 class="mt-3 text-xl font-extrabold text-[#293b2d]">{guide.short}</h3><p class="mt-3 line-clamp-3 text-sm leading-7 text-[#5c695b]">{guide.intro}</p><span class="mt-5 inline-block font-bold text-[#476347]">閱讀專題 →</span></div>
+          </a>)}
+        </div>
+        <h3 id="nearby" class="mt-14 scroll-mt-24 text-2xl font-extrabold text-[#293b2d]">周邊景點</h3>
+        <div class="mt-6 grid gap-5 md:grid-cols-2">
+          {nearby.map((place) => <a href={`/attractions/${place.slug}`} class="flex min-h-40 overflow-hidden rounded-3xl bg-white shadow-sm transition hover:shadow-lg">
+            {place.image ? <img src={place.image} alt={place.imageAlt} loading="lazy" width="320" height="240" class="w-2/5 object-cover" /> : <div class="grid w-2/5 place-items-center bg-[#dfe8da] p-5 text-center text-sm font-extrabold text-[#476347]">水庫景點介紹</div>}
+            <div class="flex flex-1 flex-col justify-center p-5"><h4 class="text-xl font-extrabold text-[#293b2d]">{place.name}</h4><p class="mt-2 line-clamp-2 text-sm leading-7 text-[#5c695b]">{place.tagline}</p><span class="mt-3 font-bold text-[#476347]">查看景點 →</span></div>
+          </a>)}
+        </div>
+        <a href="/nearby-facilities" class="mt-7 inline-flex items-center rounded-full border border-[#9eaf97] bg-white px-6 py-3 font-extrabold text-[#405e3c] transition hover:bg-[#e9f0e3]">查看停車場、公廁、林埤古道等 9 處周邊設施 →</a>
       </div>
     </section>
   </main>

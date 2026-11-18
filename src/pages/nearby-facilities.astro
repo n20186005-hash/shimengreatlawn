@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import { facilities } from '../data/facilities';
+const title = '石門大草坪周邊設施｜停車場、公廁、林埤古道與北區水資源館';
+const description = '整理石管局停車場、石門大草坪公廁、籃球場、林埤古道、石園游泳館及十一份聚落等九處獨立 Google 地圖定位。';
+---
+<BaseLayout title={title} description={description} canonical={`${site.url}/nearby-facilities`}>
+  <Header />
+  <main id="main-content" class="min-h-screen bg-[#f7f5ed] pb-24 pt-32">
+    <div class="container-shell max-w-5xl">
+      <nav aria-label="麵包屑" class="text-sm text-[#62705f]"><a href="/" class="underline">石門大草坪</a> / 周邊設施</nav>
+      <p class="mt-10 text-sm font-extrabold tracking-[.15em] text-[#637e5d]">NEARBY PLACES</p>
+      <h1 class="mt-4 text-4xl font-extrabold leading-tight text-[#293b2d] md:text-5xl">石門大草坪周邊設施與地圖</h1>
+      <p class="mt-6 max-w-3xl text-lg leading-9 text-[#586756]">從正式停車場與公共廁所，到水利教育、歷史步道與十一份地方信仰，以下九處地點提供各自的 Google 地圖連結，方便依行程獨立導航。各場所並非全部全天開放。</p>
+      <div class="mt-12 grid gap-6 md:grid-cols-2">
+        {facilities.map((place,i)=><article class="rounded-3xl border border-[#dce4d6] bg-white p-7 shadow-sm"><p class="text-xs font-extrabold tracking-widest text-[#63805c]">{String(i+1).padStart(2,'0')} · {place.type}</p><h2 class="mt-3 text-2xl font-extrabold text-[#293b2d]">{place.name}</h2><p class="mt-4 leading-8 text-[#596757]">{place.detail}</p><a href={place.map} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex rounded-full bg-[#344c34] px-5 py-3 text-sm font-bold text-white">查看 {place.name} 地圖 ↗</a></article>)}
+      </div>
+      <section class="mt-14 rounded-3xl bg-[#e8ede2] p-8"><h2 class="text-2xl font-extrabold text-[#293b2d]">行前導航提醒</h2><p class="mt-4 leading-8">「石管局停車場」與「石門水庫壩頂」不是同一個停車目的地。進入北區水資源分署辦公區前，請核對停車場上班日、非上班日使用規則。公廁、籃球場、集會堂及水資源館的開放情況也可能分別調整。</p><a href="/transport" class="mt-5 inline-block font-bold text-[#3e613d] underline">查閱大草坪停車與交通攻略 →</a></section>
+      <p class="mt-8 text-sm text-[#677465]">地點連結由讀者提供，整理日期：2026 年 11 月 18 日。Google Maps 地點資料及現場設施狀況可能變動，出發前請依地圖與管理方公告核實。</p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -7,7 +7,6 @@ import SectionHeading from '../components/SectionHeading.astro';
 import VisitDiagram from '../components/VisitDiagram.astro';
 import RatingStars from '../components/RatingStars.astro';
 import ReviewsSection from '../components/ReviewsSection.astro';
-import SourcesSection from '../components/SourcesSection.astro';
 import WeatherSection from '../components/WeatherSection.astro';
 import ServicesSection from '../components/ServicesSection.astro';
 import SeasonStrategy from '../components/SeasonStrategy.astro';
@@ -806,7 +805,6 @@ const attractionSchema = {
       </div>
     </section>
 
-    <SourcesSection />
 
     <section class="relative overflow-hidden bg-[#a45f47] py-20 text-white sm:py-28">
       <div class="absolute -right-28 -top-28 size-96 rounded-full border border-white/10"></div>
@@ -841,6 +839,7 @@ const attractionSchema = {
             <div class="flex flex-1 flex-col justify-center p-5"><h4 class="text-xl font-extrabold text-[#293b2d]">{place.name}</h4><p class="mt-2 line-clamp-2 text-sm leading-7 text-[#5c695b]">{place.tagline}</p><span class="mt-3 font-bold text-[#476347]">查看景點 →</span></div>
           </a>)}
         </div>
+        <a href="/nearby-facilities" class="mt-7 inline-flex items-center rounded-full border border-[#9eaf97] bg-white px-6 py-3 font-extrabold text-[#405e3c] transition hover:bg-[#e9f0e3]">查看停車場、公廁、林埤古道等 9 處周邊設施 →</a>
       </div>
     </section>
   </main>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SourcesSection from '../components/SourcesSection.astro';
+import { site } from '../data/site';
+---
+<BaseLayout title={`資料來源與引用說明｜${site.name}`} description="石門大草坪的 Google 地圖評價、位置、水利署及桃園官方旅遊資料來源與更新日期。" canonical={`${site.url}/sources`}>
+  <Header />
+  <main id="main-content" class="pt-16"><SourcesSection /></main>
+  <Footer />
+</BaseLayout>
